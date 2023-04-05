@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
-import { useDispatch, useSelector } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/features/loadingSlice";
+import { useDispatch } from "react-redux";
 import ReactMapGL, { GeolocateControl, Marker, NavigationControl, useControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
@@ -17,14 +16,11 @@ const Geocoder = () => {
   useControl(() => ctrl);
   ctrl.on("result", (e) => {
     const coords = e.result.geometry.coordinates;
-    console.log("coords" + coords);
-    console.log("coords[0]" + coords[0]);
-    console.log("coords[1]", coords[1]);
   });
   return null;
 };
 
-function SalonDetailsModal({ salons,setModal, id, handleBlock, handleApprove }) {
+function SalonDetailsModal({ salons, setModal, id, handleBlock, handleApprove }) {
   const [salon, setSalon] = useState();
   const dispatch = useDispatch();
 
@@ -38,7 +34,6 @@ function SalonDetailsModal({ salons,setModal, id, handleBlock, handleApprove }) 
         },
       })
       .then(({ data }) => {
-        console.log('hey',data);
         setSalon(data);
       })
       .catch((err) => {
@@ -147,9 +142,9 @@ function SalonDetailsModal({ salons,setModal, id, handleBlock, handleApprove }) 
                     }}
                     mapStyle="mapbox://styles/mapbox/streets-v11"
                   >
-                    <Marker latitude={salon.lat} longitude={salon.lng} draggable onDragEnd={(e) => {}} />
+                    <Marker latitude={salon.lat} longitude={salon.lng} draggable onDragEnd={(e) => { }} />
                     <NavigationControl position="bottom-right" />
-                    <GeolocateControl position="top-left" trackUserLocation onGeolocate={(e) => {}} />
+                    <GeolocateControl position="top-left" trackUserLocation onGeolocate={(e) => { }} />
                     <Geocoder />
                   </ReactMapGL>
                 </div>
@@ -182,9 +177,8 @@ function SalonDetailsModal({ salons,setModal, id, handleBlock, handleApprove }) 
                       }}
                       data-modal-hide="extralarge-modal"
                       type="button"
-                      className={`text-white ${
-                        salon.isBlocked ? "bg-green-600 hover:bg-green-700 duration-300" : "bg-red-600 hover:bg-red-700 duration-300"
-                      } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+                      className={`text-white ${salon.isBlocked ? "bg-green-600 hover:bg-green-700 duration-300" : "bg-red-600 hover:bg-red-700 duration-300"
+                        } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
                     >
                       {salon.isBlocked ? "Unblock" : "Block"}
                     </button>

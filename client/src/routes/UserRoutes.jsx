@@ -9,6 +9,9 @@ import Landing from "../pages/user/Landing";
 import UserLayout from "../components/UserLayout";
 import RequireAuth from "../components/RequireAuth";
 import ForgotPwd from "../pages/user/ForgotPwd";
+import AuthenticatedRoute from "../util/authenticatedRoute";
+import UnAuthenticatedRoute from "../util/unAuthenticatedRoute";
+import ConfirmationPage from "../pages/user/Confirmation";
 
 function UserRoutes() {
   return (
@@ -16,14 +19,16 @@ function UserRoutes() {
       <Route element={<UserLayout />}>
         <Route index element={<Landing />} />
         <Route path="forgotPwd" element={<ForgotPwd />} />
-        <Route path="signin" element={<Signin />} />
+        <Route path="signin" element={<UnAuthenticatedRoute><Signin /></UnAuthenticatedRoute>} />
         <Route path="signup" element={<Signup />} />
-        <Route path="venues/:district" element={<VenuesPage />} />
         <Route path="managerSignup" element={<ManagerSignup />} />
+        <Route path="venues/:place" element={<VenuesPage />} />
         <Route path="venue/:id" element={<SingleVenue />} />
-        <Route element={<RequireAuth />}>
+        <Route path="profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>} />
+        <Route path="confirmation" element={<AuthenticatedRoute><ConfirmationPage /></AuthenticatedRoute>} />
+        {/* <Route element={<RequireAuth />}>
           <Route path="profile" element={<Profile />} />
-        </Route>
+        </Route> */}
       </Route>
     </Routes>
   );

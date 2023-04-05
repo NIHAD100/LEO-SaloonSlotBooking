@@ -1,12 +1,12 @@
 {
-  "name": "saloon",
+  "name": "root",
   "version": "1.0.0",
   "description": "",
   "main": "client-and-server",
   "scripts": {
     "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm start\" "
   },
-  "author": "nihadnhd7@gmail.com",
+  "author": "abdulvahidkp abdulvahid1117@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^7.6.0",

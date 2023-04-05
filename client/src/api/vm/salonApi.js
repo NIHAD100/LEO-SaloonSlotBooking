@@ -1,11 +1,11 @@
 import axios from "../axios"
 
-const GET_TURFS = '/vm/venues'
+const GET_SALONS = '/vm/salons'
 
-export const getvenues = async () => {
+export const getSalons = async () => {
     const token = localStorage.getItem('vm');
     try {
-        const { data } = await axios.get(GET_TURFS, {
+        const { data } = await axios.get(GET_SALONS, {
             headers: {
                 Authorization: token
             }

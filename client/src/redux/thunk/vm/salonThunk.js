@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getvenues } from "../../../api/vm/turfApi";
+import { getSalons } from "../../../api/vm/salonApi";
 
-export const venues = createAsyncThunk(
-    'vm/venues', async (_,thunkAPI) => {
+export const Salons = createAsyncThunk(
+    'vm/salons', async (_,thunkAPI) => {
         try {
-            return getvenues()
+            return getSalons()
         } catch (error) {
             console.log(error);
             const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

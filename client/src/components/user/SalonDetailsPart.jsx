@@ -1,7 +1,7 @@
 import React from 'react'
 import { DocsIcon,BookingCancel } from '../../assets/DescriptionIcon'
 
-function venueDetailsPart() {
+function SalonDetailsPart({salon}) {
   return (
       <div className='bg-[#F3F5F9]'>
         <div className='container'>
@@ -15,8 +15,7 @@ function venueDetailsPart() {
                   </div>
                   <div className='ml-2 space-y-2'>
                     <h1 className='text-[#504a4a] font-semibold uppercase'>Description</h1>
-                    <p className='text-[#504a4a]'>Come and have a great time at this 5- a side Box Cricket/ Football Turf located in Ghatkopar East and take your sporting experience to next level.
-                    Stumps, Bat and Football are available at the venue for free to use. Cricket Balls can be purchased at the Venue.</p>
+                    <p className='text-[#504a4a]'>{salon.description}</p>
                   </div>
                 </div>
                 <hr />
@@ -38,4 +37,4 @@ function venueDetailsPart() {
   )
 }
 
-export default venueDetailsPart
+export default SalonDetailsPart

@@ -1,23 +1,22 @@
 const mongoose = require('mongoose')
 
-
-const saloonSchema = new mongoose.Schema({
+const salonSchema = new mongoose.Schema({
     vmId:{
         type:mongoose.Types.ObjectId,
         ref:'vms'
     },
     venueName: String,
     mobile: Number,
-    lng: Number,
-    lat: Number,
-    place:String,
-    image:String,
-    description: String,
-    actualPrice: Number,
-    sellingPrice: Number,
-    document: String,
     district: String,
+    place:String,
+    actualPrice: Number,
+    discountPercentage: Number,
+    description: String,
+    image:String,
+    document: String,
     slots: [],
+    lat: Number,
+    lng: Number,
     isBlocked: {
         type: Boolean,
         default: false
@@ -38,4 +37,4 @@ const saloonSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('saloon',saloonSchema);
+module.exports = mongoose.model('salons',salonSchema);

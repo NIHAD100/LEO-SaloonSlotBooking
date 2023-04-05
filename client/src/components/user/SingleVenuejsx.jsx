@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom'
 import axios from '../../api/axios'
 
 
-function SingleVenuejsx({venue,part,setPart}) {
-console.log('imagepard',venue)
+function SingleVenuejsx({salon,part,setPart}) {
+  console.log('salon',salon);
 
   return (
     <div>
@@ -15,16 +15,16 @@ console.log('imagepard',venue)
           <div className='flex flex-col md:flex-row w-full mt-32 '>
               <div className='basis-2/5'>
                 <div>
-                  <img src={venue.image} alt="" className='h-80 w-full object-full rounded-xl shadow-md ' />
+                  <img src={salon.image} alt="" className='h-80 w-full object-full rounded-xl shadow-md ' />
                 </div>
               </div>
               <div className='basis-3/5 container my-2 space-y-16'>
                 <div className='flex justify-between'>
                   <div>
-                  <h1 className='font-bold text-2xl text-roboto'>{venue.venueName}</h1>
+                  <h1 className='font-bold text-2xl text-roboto'>{salon.venueName}</h1>
                   <div className='flex gap-x-3'>
-                  <p className='line-through'>&#8377;{venue.actualPrice}</p>
-                  <p>&#8377;{venue.sellingPrice}</p>
+                  <p className=''>&#8377;{salon.actualPrice}</p>
+                  <p>{salon.discountPercentage}% off </p>
 
                   </div>
 
@@ -45,8 +45,8 @@ console.log('imagepard',venue)
                       <LocationIcon/>
                     </div>
                     <div className='text-slate-500 ml-1 text-base'>
-                      <p>{venue.place}</p>
-                      <p>{venue.district}</p>
+                      <p>{salon.place}</p>
+                      <p>{salon.district}</p>
                     </div>
                   </div>
                   <div>
@@ -57,17 +57,6 @@ console.log('imagepard',venue)
                       <div>
                         <p className='text-base font-semibold ml-1'>GET DIRECTION</p>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='flex justify-between'>
-
-                  <div className='border-white rounded-md border-dotted p-1 bg-cyan-500 border-2'>
-                    <div className='flex items-center space-x-1'>
-                      <div className='text-2xl text-white'>
-                        <PercentageRound/>
-                      </div>
-                      <h1 className='text-xl text-white'>20% OFF</h1>
                     </div>
                   </div>
                 </div>
@@ -85,6 +74,7 @@ console.log('imagepard',venue)
               </div>
             </div>
           </div>
+          <h1 className='text-xl text-white'>{salon.discountPercentage}% OFF</h1>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ function VMDashboardjsx() {
 
     
   return (
+    
     <div className="p-4 sm:ml-64">
       <div className="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -33,13 +34,13 @@ function VMDashboardjsx() {
                 <div className='flex px-4 py-5  space-x-9 '>
                   <div className='border rounded-md'>
                     <div className='p-2'>
-                      <h1 className='font-semibold text-xl text-[#504a4ad0] '>FIELDOUT Saloons </h1>
+                      <h1 className='font-semibold text-xl text-[#504a4ad0] '>Maxon salons </h1>
                       <p className='text-[#504a4ad0]'><span>3</span> facilities/session available</p>
                     </div>
                     <div className='pt-3'>
                       <div className='border p-1 flex justify-between items-center bg-[#F3F5F9]'>
                         <div>
-                          <h1 className='text-bold text-xl'>₹250</h1>
+                          <h1 className='text-bold text-xl'>₹650</h1>
                           <p className='text-sm text-[#504a4ad0]'>onwards</p>
                         </div>
                         <div>
@@ -50,13 +51,13 @@ function VMDashboardjsx() {
                   </div>
                   <div className='border rounded-md'>
                     <div className='p-2'>
-                      <h1 className='font-semibold text-xl text-[#504a4ad0] '>MARCA saloons</h1>
+                      <h1 className='font-semibold text-xl text-[#504a4ad0] '>Maxon salons</h1>
                       <p className='text-[#504a4ad0]'><span>3</span> facilities/session available</p>
                     </div>
                     <div className='pt-3'>
                       <div className='border p-1 flex justify-between items-center bg-[#F3F5F9]'>
                         <div>
-                          <h1 className='text-bold text-xl'>₹350</h1>
+                          <h1 className='text-bold text-xl'>₹650</h1>
                           <p className='text-sm text-[#504a4ad0]'>onwards</p>
                         </div>
                         <div>
@@ -89,10 +90,11 @@ function VMDashboardjsx() {
                     <tbody>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                canion saloons
+                                Anfield turf
                             </th>
+
                             <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                cutting/shaving
+                                5v5
                             </td>
                             <td class="px-6 py-4">
                                 11:00pm - 12:00pm
@@ -100,10 +102,11 @@ function VMDashboardjsx() {
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                ANN saloons
+                                Anfield turf
                             </th>
+                           
                             <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                shaving
+                                7v7
                             </td>
                             <td class="px-6 py-4">
                                 10:00pm - 11:00pm
@@ -111,10 +114,11 @@ function VMDashboardjsx() {
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                CMM Saloons
+                                Carriebeans
                             </th>
+                           
                             <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                cutting
+                                5v5
                             </td>
                             <td class="px-6 py-4">
                                 06:00am - 07:00am

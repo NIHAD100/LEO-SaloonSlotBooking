@@ -1,69 +1,91 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
 import axios from "../../api/axios";
-import TurfDetailsModal from "./VenueDetailsModal";
+import SalonDetailsModal from "./SalonDetailsModal";
 
-function SaloonManagejsx() {
-  const [turfs, setTurfs] = useState([]);
+function SalonManagejsx() {
+  const [salons, setSalons] = useState([]);
   const items = ["All", "Approved", "Pending"];
   const [selectedItem, setSelectedItem] = useState(items[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
 
   const [modal, setModal] = useState(false)
 
   useEffect(() => {
     axios
-      .get("/admin/venue")
+      .get("/admin/salon")
       .then(({ data }) => {
-        setTurfs(data.response);
+        setSalons(data.response);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
-  const handleApprove = async (id, status) => {
-    const adminToken = localStorage.getItem('admin')
-    console.log('hey', adminToken);
-    if (status === 'approve') {
-      try {
-        const { data } = await axios.put(
-          `/admin/venue/approve`,
-          JSON.stringify({ id }),
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `${adminToken}`,
-            },
-            withCredentials: true,
-          }
-        );
-        console.log(data);
-        setTurfs(turfs.map(turf => turf._id === id ? { ...turf, approved: true } : turf));
-      } catch (error) {
-        console.log(error.message)
-      };
-    } else {
-      axios.delete(`/admin/venue/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${adminToken}`
-        }
-      });
-      setTurfs(turfs.filter(venue => venue._id !== id));
-    }
-  }
+  useEffect(() => {
+    setFilteredData(selectedItem === 'All' ? salons : selectedItem === 'Approved' ? salons.filter((salon) => salon.approved === true) : salons.filter((salon) => salon.approved === false))
+  }, [selectedItem, salons]);
 
-  const handleBlock = (id, status) => {
-    console.log(status);
+  const handleApprove = async (id, status) => {
     const adminToken = localStorage.getItem("admin");
     swal({
-      title: `${status ? "Unblock venue?" : "Block venue?"}`,
+      title: `Are you sure?`,
+      text: `Are you sure you want to ${status} this salon?`,
+      icon: "warning",
+      buttons: ["Cancel", `${status === "approve" ? "Approve" : "Decline"}`],
+      dangerMode: status === "approve" ? false : true,
+    }).then(async (isConfirm) => {
+      if (isConfirm) {
+        if (status === "approve") {
+          try {
+            const { data } = await axios.put(
+              `/admin/salon/approve`,
+              JSON.stringify({ id }),
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `${adminToken}`,
+                },
+                withCredentials: true,
+              }
+            );
+            console.log(data);
+          } catch (error) {
+            console.log(error.message);
+          }
+          setSalons(
+            salons.map((salon) =>
+              salon._id === id ? { ...salon, approved: true } : salon
+            )
+          );
+        } else {
+          axios
+            .delete(`/admin/salon/${id}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `${adminToken}`,
+              },
+              withCredentials: true,
+            })
+            .then(({ data }) => {
+              console.log(data);
+              setSalons(salons.filter((salon) => salon._id !== id));
+            })
+            .catch((error) => console.log(error.message));
+        }
+      }
+    });
+  };
+
+  const handleBlock = (id, status) => {
+    const adminToken = localStorage.getItem("admin");
+    swal({
+      title: `${status ? "Unblock salon?" : "Block salon?"}`,
       text: `Are you sure you want to ${status ? "Unblock" : "Block"
-        } this venue?`,
+        } this salon?`,
       icon: "warning",
       buttons: ["Cancel", `${status ? "Unblock" : "Block"}`],
       dangerMode: status ? false : true,
@@ -71,7 +93,7 @@ function SaloonManagejsx() {
       if (confirm) {
         // Perform block action
         axios
-          .put("/admin/venue/block", JSON.stringify({ id }), {
+          .put("/admin/salon/block", JSON.stringify({ id }), {
             headers: {
               "Content-Type": "application/json",
               Authorization: `${adminToken}`,
@@ -79,13 +101,13 @@ function SaloonManagejsx() {
             withCredentials: true,
           })
           .then((response) => {
-            setTurfs(
-              turfs.map((turf) =>
-                turf._id === id ? { ...turf, isBlocked: !turf.isBlocked } : turf
+            setSalons(
+              salons.map((salon) =>
+                salon._id === id ? { ...salon, isBlocked: !salon.isBlocked } : salon
               )
             );
             toast.success(
-              `Turf ${status ? "unblocked" : "blocked"} successfully!`
+              `Salon ${status ? "unblocked" : "blocked"} successfully!`
             );
           });
       }
@@ -93,11 +115,11 @@ function SaloonManagejsx() {
   };
 
   return (
-    <div className="p-4 sm:ml-64 bg-[#05445E] h-screen">
+    <div className="p-4 sm:ml-64 bg-[#05445E] min-h-screen h-auto">
       <Toaster position="top-right" />
       <div className="p-4 border-gray-200  rounded-lg dark:border-gray-700 mt-14">
         <div className="flex justify-between mb-3">
-          <p className="text-lg m-1 capitalize text-white">Venue Managers</p>
+          <p className="text-lg m-1 capitalize text-white">salon Manage</p>
 
           <div className="relative inline-block text-left">
             <div>
@@ -144,7 +166,7 @@ function SaloonManagejsx() {
           </div>
         </div>
         <div className=" overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full table-fixed  text-left text-[#D4F1F4] dark:text-blue-100">
+          <table className="w-full  text-left text-[#D4F1F4] dark:text-blue-100">
             <thead className="text-xs m-1 text-[#D4F1F4] uppercase bg-[#05445E] dark:text-white">
               <tr className="border border-[#189AB4]">
                 <th scope="col" className="px-6 py-3">
@@ -167,36 +189,32 @@ function SaloonManagejsx() {
                 </th>
               </tr>
             </thead>
-            {turfs.length ? (
+            {filteredData.length ? (
               <tbody>
-                {turfs.map((turf) => (
+                {filteredData.map((salon) => (
                   <tr className="bg-[#189AB4] border-b border-[#05445E]">
                     <th
                       scope="row"
                       className="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
                     >
-                      {turf.venueName}
+                      {salon.venueName}
                     </th>
-                    <td className="px-6 py-4">{turf.vmId.name}</td>
+                    <td className="px-6 py-4">{salon.vmId.name}</td>
+                    <td className="px-6 py-4">{salon.place}</td>
+                    <td className="px-6 py-4">{salon.district}</td>
+                    <td className="px-6 py-4">&#8377; {salon.actualPrice}</td>
                     <td className="px-6 py-4">
-                      {turf.place}
-                    </td>
-                    <td className="px-6 py-4">
-                      {turf.district}
-                    </td>
-                    <td className="px-6 py-4">&#8377; {turf.sellingPrice}</td>
-                    <td className="px-6 py-4">
-                      {!turf.approved ? (
+                      {!salon.approved ? (
                         <div className="">
                           <a
                             className="font-medium rounded hover:bg-green-700 duration-300 bg-green-600 p-2 cursor-pointer"
-                            onClick={() => handleApprove(turf._id, 'approve')}
+                            onClick={() => handleApprove(salon._id, "approve")}
                           >
                             Approve
                           </a>
                           <a
                             className="ml-1 rounded font-medium hover:bg-red-700 duration-300 bg-red-600 p-2 cursor-pointer"
-                            onClick={() => handleApprove(turf._id, 'decline')}
+                            onClick={() => handleApprove(salon._id, "decline")}
                           >
                             Decline
                           </a>
@@ -204,11 +222,15 @@ function SaloonManagejsx() {
                       ) : (
                         <a
                           href="#"
-                          onClick={() => handleBlock(turf._id, turf.isBlocked)}
-                          className={`font-medium rounded ${turf.isBlocked ? "bg-green-600 hover:bg-green-700 duration-300" : "bg-red-600 hover:bg-red-700 duration-300"
+                          onClick={() =>
+                            handleBlock(salon._id, salon.isBlocked)
+                          }
+                          className={`font-medium rounded ${salon.isBlocked
+                              ? "bg-green-600 hover:bg-green-700 duration-300"
+                              : "bg-red-600 hover:bg-red-700 duration-300"
                             } p-2  `}
                         >
-                          {turf.isBlocked ? "Unblock" : "Block"}
+                          {salon.isBlocked ? "Unblock" : "Block"}
                         </a>
                       )}
                     </td>
@@ -218,13 +240,13 @@ function SaloonManagejsx() {
                       >
                         Know more
                       </a>
-                      {modal && <TurfDetailsModal turfs={turfs} modal={modal} id={turf._id} handleApprove={handleApprove} handleBlock={handleBlock} isBlocked={turf.isBlocked} approved={turf.approved} setModal={setModal} />}
+                      {modal && <SalonDetailsModal salons={salons} modal={modal} id={salon._id} handleApprove={handleApprove} handleBlock={handleBlock} isBlocked={salon.isBlocked} approved={salon.approved} setModal={setModal} />}
                     </td>
                   </tr>
                 ))}
               </tbody>
             ) : (
-              <p className="text-white text-2xl">No Saloons available</p>
+              <p className="text-white text-2xl">No Salons available</p>
             )}
           </table>
         </div>
@@ -233,4 +255,4 @@ function SaloonManagejsx() {
   );
 }
 
-export default SaloonManagejsx;
+export default SalonManagejsx;

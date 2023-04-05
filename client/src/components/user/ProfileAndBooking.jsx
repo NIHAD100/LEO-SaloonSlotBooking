@@ -1,5 +1,5 @@
 import React from 'react'
-import turfImage from '../../assets/turfImage.jpg'
+import salonImage from '../../assets/turfImage2.jpeg'
 
 function ProfileAndBooking() {
   return (
@@ -9,7 +9,7 @@ function ProfileAndBooking() {
           <div className='flex py-24 max-h-full space-x-2'>
             <div className='bg-white shadow-sm w-full  basis-1/4 p-4 space-y-3 rounded-md sticky' >
               <div>
-                <h1 className='font-semibold text-2xl font-roboto text-[#605555] uppercase'>Abdul Vahid k p</h1>
+                <h1 className='font-semibold text-2xl font-roboto text-[#605555] uppercase'>nihad</h1>
                 <p className='text-[#807d7d] font-mono font-semibold'>989214568</p>
               </div>
               <div className='buttons flex flex-col space-y-2 '>
@@ -22,9 +22,9 @@ function ProfileAndBooking() {
               <div className='shadow rounded-lg'>
                 <div className='flex justify-between rounded-lg p-1'>
                   <div className='flex space-x-2'>
-                    <img src={turfImage} className="h-24 rounded-l-lg" alt="" />
+                    <img src={salonImage} className="h-24 rounded-l-lg" alt="" />
                     <div className='pt-1'>
-                      <h1 className='text-[#605555] text-lg uppercase'>carriebiens Turf</h1>
+                      <h1 className='text-[#605555] text-lg uppercase'>carriebiens salon</h1>
                       <p className='text-[#605555]'><span className='text-[#807d7d]'>Activity : </span>FOOTBALL</p>
                       <p className='text-[#605555]'><span className='text-[#807d7d]'>Facility : </span>5v5 </p>
                     </div>
@@ -43,9 +43,9 @@ function ProfileAndBooking() {
               <div className='shadow rounded-lg'>
                 <div className='flex justify-between rounded-lg p-1'>
                   <div className='flex space-x-2'>
-                    <img src={turfImage} className="h-24 rounded-l-lg" alt="" />
+                    <img src={salonImage} className="h-24 rounded-l-lg" alt="" />
                     <div className='pt-1'>
-                      <h1 className='text-[#605555] text-lg uppercase'>Anfield Turf</h1>
+                      <h1 className='text-[#605555] text-lg uppercase'>Anfield salon</h1>
                       <p className='text-[#605555]'><span className='text-[#807d7d]'>Activity : </span>FOOTBALL</p>
                       <p className='text-[#605555]'><span className='text-[#807d7d]'>Facility : </span>5v5 </p>
                     </div>
@@ -70,9 +70,9 @@ function ProfileAndBooking() {
               <div className='shadow rounded-lg'>
                 <div className='flex justify-between rounded-lg p-1'>
                   <div className='flex space-x-2'>
-                    <img src={turfImage} className="h-24 rounded-l-lg" alt="" />
+                    <img src={salonImage} className="h-24 rounded-l-lg" alt="" />
                     <div className='pt-1'>
-                      <h1 className='text-[#605555] text-lg uppercase'>Anfield Turf</h1>
+                      <h1 className='text-[#605555] text-lg uppercase'>Anfield salon</h1>
                       <p className='text-[#605555]'><span className='text-[#807d7d]'>Activity : </span>FOOTBALL</p>
                       <p className='text-[#605555]'><span className='text-[#807d7d]'>Facility : </span>5v5 </p>
                     </div>

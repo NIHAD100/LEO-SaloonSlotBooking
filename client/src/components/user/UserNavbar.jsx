@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import entruflogo from "../../assets/entruflogo.jpg";
 import { userLogout } from "../../redux/features/userSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +13,7 @@ function UserNavbar() {
   const {isLoggedIn} = useSelector((state) => state.user);
 
   return (
-    <div className="fixed w-full z-10 top-0 bg-white ">
+    <div className="fixed w-full z-10 top-0 bg-white">
       <nav className="px-2 py-2.5 shadow-md ">
         <div className="w-screen sm:mt-0 sm:container flex flex-wrap justify-between items-center mx-auto">
           <div className="">
@@ -24,24 +23,22 @@ function UserNavbar() {
           </div>
           <div className="items-center">
             <a className="text-xs sm:text-lg cursor-pointer hover:text-green-500 duration-500">
-              CONTACT
+              MY PROFILE
             </a>
             {isLoggedIn ? (
               <button
-                className="bg-green-400/70 text-white font-[Poppins] duration-500 p-1 sm:px-4 py-0 text-xs sm:text-lg sm:py-1 mx-3 sm:mx-4 hover:bg-green-500 rounded "
+                className="bg-green-500/70 text-white font-[Poppins] duration-500 p-1 sm:px-4 py-0 text-xs sm:text-lg sm:py-1 mx-3 sm:mx-4 hover:bg-green-700 rounded "
                 onClick={() => dispatch(userLogout())}
               >
                 LOGOUT
               </button>
             ) : (
               <button
-                className="bg-green-400/70 text-white font-[Poppins] duration-500 p-1 sm:px-4 py-0 text-xs sm:text-lg sm:py-1 mx-3 sm:mx-4 hover:bg-green-500 rounded "
+                className="bg-[#276221] text-white font-[Poppins] duration-500 p-1 sm:px-4 py-0 text-xs sm:text-lg sm:py-1 mx-3 sm:mx-4 hover:bg-green-700 rounded "
                 onClick={() => navigate('/signin')}
               >
                 LOGIN
               </button>
-              
-              
             )}
           </div>
         </div>

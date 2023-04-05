@@ -1,42 +1,49 @@
 const vms = require('../../models/vms.model')
+const twilio = require('twilio')
+
+const sendMessage = (mobile,reason,status)=> {
+    mobile = Number(mobile)
+    console.log('at sendMessage ;',mobile, reason, status)
+    const accountSid = process.env.accountSid;
+    const authToken = process.env.authToken;
+    const client = twilio(accountSid, authToken);
+    const message = `Salon Booking  - Your venue manager application has been ${status}. ${reason ? `reason : ${reason}` : '' }`;
+    client.messages
+      .create({
+        body: message,
+        from: process.env.myMobile,
+        to: `+91${mobile}`
+      })
+      .then(message => console.log(message.sid))
+      .catch(error =>{
+        console.error(error)
+      });
+}
 
 module.exports = {
-    getVms: async (req, res) => {
+    getVms: async (req,res) => {
         vms.find().then(vmsDatas => {
             res.status(200).json({ vmsDatas })
-        }).catch(err => {
+        }).catch(err=>{
             console.log(err.message);
-            res.status(400).json({ message: 'error occured' })
+            res.status(400).json({message:'error occured'})
         })
     },
     blockVm: async (req, res) => {
         const { _id } = req.params;
         await vms.updateOne({ _id }, [{ "$set": { "blockStatus": { "$eq": [false, "$blockStatus"] } } }]).then(response => {
             res.sendStatus(200);
-        }).catch(err => {
+        }).catch(err=>{
             console.log(err.message);
-            res.status(400).json({ message: 'error occured' })
+            res.status(400).json({message:'error occured'})
         })
     },
-    approve: async (req, res) => {
-        const { _id } = req.params;
-        await vms.updateOne({ _id }, { "$set": { approved: true } }).then(response => {
-            console.log(response)
+    changeStatus: async (req,res) => {
+        const { vmId,status,reason } = req.body;
+        console.log(req.body);
+        await vms.findOneAndUpdate({_id:vmId},{"$set":{status,reason}}).then(async (response)=>{
+            sendMessage(response.mobile,reason,status)
             res.sendStatus(200);
-        }).catch(err => {
-            console.log(err.message);
-            res.status(400).json({ message: 'error occured' })
-        })
-
-    },
-    deleteVm: async (req, res) => {
-        const { _id } = req.params;
-        await vms.deleteOne({ _id }).then(response => {
-            console.log(response);
-            res.sendStatus(204); //resource deleted successully
-        }).catch(err => {
-            console.log(err.message);
-            res.status(400).json({ message: 'error occured' })
         })
     }
 }

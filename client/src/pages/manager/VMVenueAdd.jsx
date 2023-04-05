@@ -1,4 +1,4 @@
-import VMVenueAddjsx from "../../components/manager/VMVenueAdd/VMVenueAddjsx";
+import VMVenueAddjsx from "../../components/manager/VMVenueAdd/VMVenueAddNew";
 
 function VMVenueAdd() {
   return <VMVenueAddjsx />;

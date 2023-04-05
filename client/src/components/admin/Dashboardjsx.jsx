@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Chart as ChartJs, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import axios from "../../api/axios";
 
 
 ChartJs.register(ArcElement, Tooltip, Legend);
@@ -8,33 +9,45 @@ ChartJs.register(ArcElement, Tooltip, Legend);
 
 function Dashboardjsx() {
   const data = {
-    labels: ['cutting',"shaving","cutting/shaving"],
+    labels: ['online',"offline"],
     datasets:[
       {
-        data: [3,10,5,3],
-        backgroundColor: ['#05445E','#189AB4',"#D4F1F4"]
+        data: [3,10],
+        backgroundColor: ['#05445E','#189AB4']
       }
     ]
   };
 
-  const options = {
-    
-  }
+  const [counts,setCounts] = useState({})
+  
 
-  const footballData = [
-    { x: "cutting", y: 4 },
-    { x: "shaving", y: 56 },
-    { x: "cutting/shaving", y: 89 },
-  ];
+  useEffect(()=>{
+    const token = localStorage.getItem('admin')
+    const getDashboardDetails = async () => {
+      try {
+        let {data} = await axios.get('/admin',{
+          headers:{
+            Authorization:token
+          }
+        })
+        console.table(data)
+        setCounts(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getDashboardDetails()
+  },[])
+
 
   return (
-    <div className="p-4 sm:ml-64 bg-[#05445E] h-screen">
+    <div className="p-4 sm:ml-64 bg-[#05445E] min-h-screen h-auto">
       <div className="p-4 mt-12">
-        <div className="grid grid-cols-5 gap-8 mb-4">
+        <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-8 mb-4">
           <div className="flex items-center justify-between px-6 h-24 rounded bg-[#189AB4] dark:bg-gray-800">
-            <div className="flex items-center">
+            <div className="flex items-center ">
               <svg
-                className="absolute w-12 h-12 text-[#75E6DA] "
+                className="flex-shrink-0 w-12 h-12 text-[#75E6DA] transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -48,13 +61,14 @@ function Dashboardjsx() {
             </div>
             <div>
               <p className="text-[#D4F1F4]">Total Users</p>
-              <p className="font-bold text-[#D4F1F4] text-xl">0</p>
+              <p className="font-bold text-[#D4F1F4] text-xl text-end">{counts?.usersCount}</p>
             </div>
           </div>
           <div className="flex items-center justify-between px-6 h-24 rounded bg-[#189AB4] dark:bg-gray-800">
             <div className="flex items-center">
               <svg
-                className="absolute w-12 h-12 text-[#75E6DA] "
+                aria-hidden='true'
+                className="flex-shrink-0 w-12 h-12 text-[#75E6DA] transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +82,7 @@ function Dashboardjsx() {
             </div>
             <div>
               <p className="text-[#D4F1F4]">Total Managers</p>
-              <p className="font-bold text-[#D4F1F4] text-xl">0</p>
+              <p className="font-bold text-[#D4F1F4] text-xl text-end">{counts?.vmsCount}</p>
             </div>
           </div>
           <div className="flex items-center justify-between px-6 h-24 rounded bg-[#189AB4] dark:bg-gray-800">
@@ -85,7 +99,7 @@ function Dashboardjsx() {
             </div>
             <div>
               <p className="text-[#D4F1F4]">Total Venues</p>
-              <p className="font-bold text-[#D4F1F4] text-xl">0</p>
+              <p className="font-bold text-[#D4F1F4] text-xl text-end">{counts?.salonsCount}</p>
             </div>
           </div>
           <div className="flex items-center justify-between px-6 h-24 rounded bg-[#189AB4] dark:bg-gray-800">
@@ -106,35 +120,14 @@ function Dashboardjsx() {
             </div>
             <div>
               <p className="text-[#D4F1F4]">Total Bookings</p>
-              <p className="font-bold text-[#D4F1F4] text-xl">0</p>
+              <p className="font-bold text-[#D4F1F4] text-xl text-end">{counts?.bookingsCount}</p>
             </div>
           </div>
-          <div className="flex items-center justify-between px-6 h-24 rounded bg-[#189AB4] dark:bg-gray-800">
-            <div className="flex items-center">
-              <svg
-                className="w-12 h-12 dark:text-white text-[#75E6DA]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                ></path>
-              </svg>
-            </div>
-            <div>
-              <p className="text-[#D4F1F4]">Total Facilities</p>
-              <p className="font-bold text-[#D4F1F4] text-xl">0</p>
-            </div>
-          </div>
+     
         </div>
-        <div className="grid grid-cols-2 mt-6 gap-4 mb-4">
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full  text-left text-[#D4F1F4] dark:text-blue-100">
+        <div className="lg:grid grid-cols-2 mt-6 gap-4 mb-4">
+          <div className="relative overflow-x-auto  sm:rounded-lg">
+            <table className="w-full text-left text-[#D4F1F4] dark:text-blue-100">
               <thead className="text-xs text-[#D4F1F4] uppercase bg-[#05445E] dark:text-white">
                 <p className="text-lg m-1 capitalize">New Venue Requests</p>
                 <tr className="border border-[#189AB4]">
@@ -142,115 +135,40 @@ function Dashboardjsx() {
                     Venue name
                   </th>
                   <th scope="col" className="px-6 py-3">
+                    Vm Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
                     place
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Facility
+                    district
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    Manager
+                    Price
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    Status
-                  </th>
+                
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-[#189AB4] border-b border-[#05445E]">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
-                  >
-                    canion saloons
-                  </th>
-                  <td class="px-6 py-4">Taliparamba</td>
-                  <td class="px-6 py-4">cutting</td>
-                  <td class="px-6 py-4">Ali</td>
-                  <td class="px-6 py-4">
-                    <a
-                      href="#"
-                      class="font-medium text-[#75E6DA] hover:underline"
+                {
+                  counts.pendingsalons?.length &&
+                  counts.pendingsalons.map(per=> (
+                  <tr className="bg-[#189AB4] border-b border-[#05445E]">
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
                     >
-                      Pending
-                    </a>
-                  </td>
-                </tr>
-                <tr class="bg-[#189AB4] border-b border-[#05445E]">
-                  <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
-                  >
-                    canion saloons
-                  </th>
-                  <td class="px-6 py-4">Taliparamba</td>
-                  <td class="px-6 py-4">cutting</td>
-                  <td class="px-6 py-4">Ali</td>
-                  <td class="px-6 py-4">
-                    <a
-                      href="#"
-                      className="font-medium text-[#75E6DA] hover:underline"
-                    >
-                      Pending
-                    </a>
-                  </td>
-                </tr>
-                <tr class="bg-[#189AB4] border-b border-[#05445E]">
-                  <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
-                  >
-                    canion saloons
-                  </th>
-                  <td class="px-6 py-4">Taliparamba</td>
-                  <td class="px-6 py-4">cutting</td>
-                  <td class="px-6 py-4">Ali</td>
-                  <td class="px-6 py-4">
-                    <a
-                      href="#"
-                      class="font-medium text-[#75E6DA] hover:underline"
-                    >
-                      Pending
-                    </a>
-                  </td>
-                </tr>
-                <tr className="bg-[#189AB4] border-b border-[#05445E]">
-                  <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
-                  >
-                    canion saloons
-                  </th>
-                  <td className="px-6 py-4">Taliparamba</td>
-                  <td className="px-6 py-4">shaving</td>
-                  <td className="px-6 py-4">Ali</td>
-                  <td className="px-6 py-4">
-                    <a
-                      href="#"
-                      class="font-medium text-[#75E6DA] hover:underline"
-                    >
-                      Pending
-                    </a>
-                  </td>
-                </tr>
-                <tr class="bg-[#189AB4] border-b border-[#05445E]">
-                  <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-[#D4F1F4] whitespace-nowrap dark:text-[#D4F1F4]"
-                  >
-                    canion saloons
-                  </th>
-                  <td class="px-6 py-4">Taliparamba</td>
-                  <td class="px-6 py-4">cutting</td>
-                  <td class="px-6 py-4">Ali</td>
-                  <td class="px-6 py-4">
-                    <a
-                      href="#"
-                      class="font-medium text-[#75E6DA] hover:underline"
-                    >
-                      Pending
-                    </a>
-                  </td>
-                </tr>
+                      {per.venueName}
+                    </th>
+                    <td class="px-6 py-4">{per.vmId.name}</td>
+                    <td class="px-6 py-4">{per.place}</td>
+                    <td class="px-6 py-4">{per.district}</td>
+                    <td class="px-6 py-4">{per.actualPrice}</td>
+                  </tr>
+
+                  ))
+                }
+               
               </tbody>
             </table>
           </div>
@@ -259,7 +177,6 @@ function Dashboardjsx() {
             <div className="p-16 w-50 ">
               <Pie 
                data={data}
-               options = {options}
               /> 
             </div>
           </div>

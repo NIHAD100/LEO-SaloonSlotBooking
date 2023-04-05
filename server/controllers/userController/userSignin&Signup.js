@@ -122,5 +122,24 @@ module.exports = {
                 res.status(200).json({accessToken, name: data.name, mobile: data.email })
             }
         })
+    },
+    updateProfile:async (req,res) => {
+        const id = req._id;
+        console.log(req.body)
+        const {name,image,rejectUpdate} = req.body
+        if(rejectUpdate) {
+            if(image){
+                vms.findOneAndUpdate({_id:id},{'$set':{name,image,reason:'',status:'pending'}}).then(response=>{
+                    console.log(response)
+                    res.status(200).json(response)
+                })
+            } else if(req.body?.rejectUpdate) {
+                vms.findOneAndUpdate({_id:id},{'$set':{name,reason:'',status:'pending'}}).then(response=>{
+                    console.log(response)
+                    res.status(200).json(response)
+                })
+
+            }
+        }
     }
 }

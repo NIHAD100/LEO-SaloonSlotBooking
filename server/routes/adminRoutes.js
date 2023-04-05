@@ -8,20 +8,22 @@ const bookingController = require('../controllers/adminController/BookingControl
 
 router.post('/signin', adminController.adminLogin);
 
-router.get('/users',userController.getUsers)
-router.put('/users/blockStatus/:_id',userController.blockUser)
+router.get('/', verifyToken, adminController.getDashboardDetails)
 
-router.get('/vm',vmController.getVms)
-router.put('/vm/blockStatus/:_id',vmController.blockVm)
-router.put('/vm/status',verifyToken,vmController.changeStatus);
+router.get('/users', userController.getUsers)
+router.put('/users/blockStatus/:_id', userController.blockUser)
 
-router.get('/bookings',verifyToken,bookingController.getBookings)
+router.get('/vm', vmController.getVms)
+router.put('/vm/blockStatus/:_id', vmController.blockVm)
+router.put('/vm/status', verifyToken, vmController.changeStatus);
 
-router.get('/salon',salonController.getSalon)
-router.put('/salon/approve',verifyToken,salonController.approve);
-router.delete('/salon/:id',verifyToken,salonController.deleteSalon)
-router.put('/salon/block',verifyToken,salonController.changeBlock)
-router.get('/salon/:_id',verifyToken,salonController.getPerSalon)
+router.get('/bookings', verifyToken, bookingController.getBookings)
+
+router.get('/salon', salonController.getSalon)
+router.put('/salon/approve', verifyToken, salonController.approve);
+router.delete('/salon/:id', verifyToken, salonController.deleteSalon)
+router.put('/salon/block', verifyToken, salonController.changeBlock)
+router.get('/salon/:_id', verifyToken, salonController.getPerSalon)
 
 
 module.exports = router;

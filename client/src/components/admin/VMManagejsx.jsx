@@ -10,7 +10,7 @@ const GET_VMS = "/admin/vm";
 const CHANGE_BLOCK = "/admin/vm/blockStatus";
 
 function VMManagejsx() {
-  const [vms, setVms] = useState([]); //
+  const [vms, setVms] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [salons, showSalons] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -70,7 +70,6 @@ function VMManagejsx() {
           },
         }
       );
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

@@ -1,5 +1,5 @@
 import SideAndNav from './SideAndNav'
-import { Outlet,useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 function AdminLayout() {
 
@@ -7,8 +7,8 @@ function AdminLayout() {
 
   return (
     <div>
-      {location.pathname !== '/admin/signin' && <SideAndNav/>}
-      <Outlet/>
+      {location.pathname !== '/admin/signin' && <SideAndNav />}
+      <Outlet />
     </div>
   )
 }

@@ -18,14 +18,14 @@ export const checkIfUserLoggedIn = () => {
 const initialState = {
     isLoggedIn: checkIfUserLoggedIn(),
     mobile: '',
-    name:'',
-    signin:{
-        isLoading:false,
-        isErr:false,
-        errMsg:""
+    name: '',
+    signin: {
+        isLoading: false,
+        isErr: false,
+        errMsg: ""
     }
 }
-    
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -51,18 +51,16 @@ const userSlice = createSlice({
         });
 
         builder.addCase(signin.fulfilled, (state, action) => {
-           state.signin.isLoading = false;
-           state.signin.errMsg = ''
-            //data will come here
-            console.log('action',action);
-            console.log(action.payload);
-            localStorage.setItem('user',action.payload.accessToken);
+            state.signin.isLoading = false;
+            state.signin.errMsg = ''
+            //data will come here          
+            localStorage.setItem('user', action.payload.accessToken);
             state.isLoggedIn = true;
         });
 
         builder.addCase(signin.rejected, (state, action) => {
             state.signin.errMsg = action.payload.message
-        }); 
+        });
 
     }
 })

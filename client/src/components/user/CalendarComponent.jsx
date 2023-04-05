@@ -9,8 +9,6 @@ function CalendarComponent({ onDateSelect }) {
   const maxDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
     .toISOString()
     .split("T")[0];
-    
-  console.log(maxDate)
 
   const handleDateChange = (date) => {
     setSelectedDate(date);

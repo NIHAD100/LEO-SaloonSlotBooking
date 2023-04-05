@@ -15,7 +15,6 @@ function SingleVenue() {
     const getPerSalon = async () => {
       try {
         let { data } = await axios.get(`/venue/${id}`);
-        console.log(data);
         setSalon(data);
       } catch (error) {
         console.log(error.message);

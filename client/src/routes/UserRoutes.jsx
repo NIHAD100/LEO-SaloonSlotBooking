@@ -7,7 +7,6 @@ import SingleVenue from "../pages/user/SingleVenue";
 import VenuesPage from "../pages/user/VenuesPage";
 import Landing from "../pages/user/Landing";
 import UserLayout from "../components/UserLayout";
-import RequireAuth from "../components/RequireAuth";
 import ForgotPwd from "../pages/user/ForgotPwd";
 import AuthenticatedRoute from "../util/authenticatedRoute";
 import UnAuthenticatedRoute from "../util/unAuthenticatedRoute";

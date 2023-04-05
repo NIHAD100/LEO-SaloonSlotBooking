@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { clearBooking } from "../../redux/features/bookingSlice";
@@ -9,25 +9,12 @@ import BookingCalendar from "./BookingCalendar";
 import { EmptyCart } from "../../assets/CartIcon";
 
 function BookingSection({ salon }) {
-  // function handleSlotSelection(isSelected, slot) {
-  //   // Store the selected slot in a state variable
-  //   setSelectedSlots(prevSelectedSlots => isSelected
-  //     ? [...prevSelectedSlots, slot]
-  //     : prevSelectedSlots.filter(selectedSlot => selectedSlot !== slot)
-  //   );
-
-  //   // Calculate the price based on the number of selected slots
-  //   const pricePerSlot = 10; // Replace with your actual price per slot
-  //   const totalPrice = selectedSlots.length * pricePerSlot;
-  //   setTotalPrice(totalPrice);
-  // }
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const slotBooking = useSelector((state) => state.booking);
-  console.log("hy", slotBooking);
   const { isLoggedIn } = useSelector((state) => state.user);
 
 
@@ -68,15 +55,12 @@ function BookingSection({ salon }) {
       image: salon.image,
       order_id: datas.id,
       handler: async (response) => {
-        console.log('handler');
         try {
-          console.log('hey');
           const { data } = await axios.post("/verifyPayment", { ...response, salonId: salon._id, slotDate: slotBooking.date, slotTime: slotBooking.slot, price: datas.amount }, {
             headers: {
               Authorization: token,
             },
           });
-          console.log(data);
           navigate('/confirmation')
         } catch (error) {
           console.log(error);
@@ -97,17 +81,6 @@ function BookingSection({ salon }) {
           {isLoggedIn ? (
             <>
               <div className="w-8/12 my-11 space-y-6   ">
-
-
-                {/* <div className='bg-[#a7b4ca3c] rounded-lg'>
-                <div className='py-2 '>
-                  <span className=' py-2 px-3 w-3 -ml-7 bg-[#1a273a] text-white rounded-full'>2</span>
-                  <a className='text-2xl font-roboto font-semibold mx-2 text-[#504a4a] '>Choose a Facility</a>
-                </div>
-                <div className='flex px-4 py-5 space-x-9 '>
-                  <p className='text-[#504a4ad0]'>Please select an activity to view available facilities</p>
-                </div>
-               </div> */}
                 {
                   salon.slots?.length && (
                     <div className="bg-white rounded-lg">
@@ -162,15 +135,6 @@ function BookingSection({ salon }) {
             </>
           ) : (
             <div className="w-full my-11 space-y-6   ">
-              {/* <div className='bg-[#a7b4ca3c] rounded-lg'>
-                <div className='py-2 '>
-                  <span className=' py-2 px-3 w-3 -ml-7 bg-[#1a273a] text-white rounded-full'>2</span>
-                  <a className='text-2xl font-roboto font-semibold mx-2 text-[#504a4a] '>Choose a Facility</a>
-                </div>
-                <div className='flex px-4 py-5 space-x-9 '>
-                  <p className='text-[#504a4ad0]'>Please select an activity to view available facilities</p>
-                </div>
-               </div> */}
               <div className="bg-[#a7b4ca3c] rounded-lg">
                 <div className="flex px-4 justify-between py-5 space-x-9 ">
                   <p className="text-[#504a4ad0]">Please login to see available facility and slots</p>

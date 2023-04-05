@@ -21,13 +21,13 @@ app.use(cors({
 }))
 
 //databaseConnection
-mongoose.set("strictQuery", false);  
+mongoose.set("strictQuery", false);
 mongoose.connect(process.env.mongodb);
 
 //
-app.use('/',userRoutes)
-app.use('/admin',adminRoutes)
-app.use('/vm',vmRoutes)
+app.use('/', userRoutes)
+app.use('/admin', adminRoutes)
+app.use('/vm', vmRoutes)
 
 //serverPort
 app.listen(PORT, () => console.log(`server started on ${PORT}`));

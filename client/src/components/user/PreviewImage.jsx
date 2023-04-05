@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
-function PreviewImage({file}) {
+function PreviewImage({ file }) {
 
-  const [preview,setPreview] = useState({});
+  const [preview, setPreview] = useState({});
 
-  if(file){
-    const reader= new FileReader()
+  if (file) {
+    const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => {
-        setPreview(reader.result)
+      setPreview(reader.result)
     }
   }
   return (

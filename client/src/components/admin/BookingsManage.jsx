@@ -3,7 +3,7 @@ import axios from "../../api/axios";
 import { Toaster } from "react-hot-toast";
 
 const GET_BOOKINGS = "/admin/bookings";
-//////////////log
+
 function BookingsManage() {
     const [bookings, setBookings] = useState([]);
 

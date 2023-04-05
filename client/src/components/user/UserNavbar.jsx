@@ -10,7 +10,7 @@ function UserNavbar() {
 
   const navigate = useNavigate();
 
-  const {isLoggedIn} = useSelector((state) => state.user);
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   return (
     <div className="fixed w-full z-10 top-0 bg-white">

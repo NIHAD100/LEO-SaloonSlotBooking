@@ -5,10 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 import Google from "../../assets/Google.png";
 import SignImage from "./SignImageSection";
-const LOGIN_URL = "/signin";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDetails } from "../../redux/features/userSlice";
-import ForgotPassword from "./ForgotPassword";
 import { userLogin } from "../../redux/features/userSlice";
 //service
 import { signin } from "../../redux/thunk/user";
@@ -43,54 +40,16 @@ function UserLogin() {
 
   const handleSigninSubmit = async (e) => {
     e.preventDefault();
-    //irfan
     dispatch(signin({ mobile, password: pwd }));
-    // try {
-    //   const { data } = await axios.post(
-    //     LOGIN_URL,
-    //     JSON.stringify({ mobile, password: pwd }),
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   // console.log(JSON.stringify(response?.data));
-    //   const accessToken = data.accessToken;
-    //   // const roles = response?.data?.roles;
-    //   setAuth({ mobile, password, accessToken });
-    //   // localStorage.setItem("user",response.data);
-    //   localStorage.setItem("user", accessToken);
-    //   console.log(data);
-    //   dispatch(setUserDetails({ name: data.name, mobile: data.mobile }));
-    //   dispatch(userLogin());
-    //   setMobile("");
-    //   setPwd("");
-    //   navigate(from, { replace: true });
-    // } catch (error) {
-    //   console.log(error.message);
-    //   if (!error?.response) {
-    //     setErrMsg("no server response");
-    //   } else if (error.repsonse?.status === 400) {
-    //     setErrMsg("missing mobile or password");
-    //   } else if (error.response?.status === 401) {
-    //     setErrMsg("Unauthorized");
-    //   } else if (error.response?.status === 403) {
-    //     setErrMsg("You are Blocked!");
-    //   } else {
-    //     setErrMsg("login failed");
-    //   }
-    //   errRef.current.focus();
-    // }
+
   };
 
   const handleGoogleSignin = async (e) => {
     e.preventDefault();
     try {
       const hello = await googleSignin();
-      console.log('hello : ', hello._tokenResponse);
-      let {data} = await axios.post('/signin/google',hello._tokenResponse)
-      console.log(data)
-      localStorage.setItem('user',data.accessToken);
+      let { data } = await axios.post('/signin/google', hello._tokenResponse)
+      localStorage.setItem('user', data.accessToken);
       dispatch(userLogin())
       navigate("/");
     } catch (error) {

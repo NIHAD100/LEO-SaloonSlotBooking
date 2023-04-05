@@ -108,26 +108,6 @@ function VmVenueAddNew() {
   }
 
 
-  // function handleCheckboxChange(slot, indexOf) {
-  //   setSlots((prevDays) => {
-  //     const updatedDays = [...prevDays];
-  //     const selectedDay = { ...updatedDays[indexOf] };
-  //     const slotIndex = selectedDay.slots.indexOf(slot);
-  //     if (slotIndex === -1) {
-  //       const newSlots = [...selectedDay.slots, slot];
-  //       const updatedDay = { ...selectedDay, slots: newSlots };
-  //       updatedDays[indexOf] = updatedDay;
-  //     } else {
-  //       const newSlots = selectedDay.slots.filter((s) => s !== slot);
-  //       const updatedDay = { ...selectedDay, slots: newSlots };
-  //       updatedDays[indexOf] = updatedDay;
-  //     }
-  //     return updatedDays;
-  //   });
-  // }
-
-  //
-
   const Geocoder = () => {
     const ctrl = new MapboxGeocoder({
       accessToken: import.meta.env.VITE_MAP_TOKEN,
@@ -136,7 +116,6 @@ function VmVenueAddNew() {
     });
     useControl(() => ctrl);
     ctrl.on("result", (e) => {
-      console.log("e", e);
       const coords = e.result.geometry.coordinates;
       setLng(coords[0]);
       setLat(coords[1]);

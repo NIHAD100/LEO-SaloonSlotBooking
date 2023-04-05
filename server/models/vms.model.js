@@ -12,15 +12,15 @@ const VmSchema = new mongoose.Schema({
     },
     reason: {
         type: String,
-        default:''
+        default: ''
     },
     blockStatus: {
         type: Boolean,
         default: false
     },
-    rejectUpdate:{
-        type:Boolean,
-        default:false
+    rejectUpdate: {
+        type: Boolean,
+        default: false
     }
 })
 

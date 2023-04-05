@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./VenueManagerSignup.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "../../../api/axios";
 import setUpRecaptcha from "../../../context/UserAuth";
-import jwtDecode from "jwt-decode";
 import PreviewImage from "../PreviewImage";
 
 const NUMBER_REGEX = /^[0-9]{10}$/;
@@ -48,14 +47,14 @@ function VenueManagerSignup() {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
-        console.log("+91" + values.mobile);
+
         const otpResponse = await setUpRecaptcha("+91" + values.mobile);
-        console.log(otpResponse);
+
         setConfirm(otpResponse);
         setSuccess(true);
         setErr("");
       } catch (error) {
-        console.log(error.code);
+
         console.log(error.message);
         if (error.code === "auth/argument-error") {
           setErr("Mobile Number you entered isn't available");
@@ -84,14 +83,13 @@ function VenueManagerSignup() {
         formData.append("upload_preset", import.meta.env.VITE_uploadPreset);
         const { data } = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_cloudName}/image/upload`, formData);
         formik.values.image = data.secure_url;
-        console.log(formik.values.image);
+
         await confirm.confirm(values.otp).then(async () => {
           const response = await axios.post(SIGN_UP, JSON.stringify(formik.values), {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
           });
-          console.log(response.data);
-          // localStorage.setItem("admins", JSON.stringify(response.data));
+
           navigate("/vm/signin");
         });
       } catch (error) {

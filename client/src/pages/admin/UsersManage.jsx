@@ -3,7 +3,7 @@ import UsersManagejsx from '../../components/admin/UsersManagejsx'
 
 function UsersManage() {
   return (
-      <UsersManagejsx/>
+    <UsersManagejsx />
   )
 }
 

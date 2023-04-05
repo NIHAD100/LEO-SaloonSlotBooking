@@ -15,24 +15,24 @@ export const checkIfVmLoggedIn = () => {
 
 const initialState = {
     isLoggedIn: checkIfVmLoggedIn(),
-    vmDetails:{},
-    status:'',
-    reason:''
+    vmDetails: {},
+    status: '',
+    reason: ''
 }
 
 const vmSlice = createSlice({
-    name:'vm',
+    name: 'vm',
     initialState,
-    reducers:{
-        setVmDetails:(state,action)=>{
+    reducers: {
+        setVmDetails: (state, action) => {
             state.isLoggedIn = true,
-            state.vmDetails = {name:action.payload.name, mobile:action.payload.mobile, document:action.payload.image}
+                state.vmDetails = { name: action.payload.name, mobile: action.payload.mobile, document: action.payload.image }
             state.status = action.payload.status
             state.reason = action.payload.reason
         },
-        removeVmDetails:(state,action)=>{
+        removeVmDetails: (state, action) => {
             state.isLoggedIn = false,
-            state.mobile = ''
+                state.mobile = ''
             state.name = ''
             state.status = ''
             localStorage.removeItem('vm')
@@ -40,5 +40,5 @@ const vmSlice = createSlice({
     }
 })
 
-export const {setVmDetails, removeVmDetails} = vmSlice.actions
+export const { setVmDetails, removeVmDetails } = vmSlice.actions
 export default vmSlice.reducer

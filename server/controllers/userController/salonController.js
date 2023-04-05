@@ -22,9 +22,8 @@ module.exports = {
             res.status(400).json({ message: 'error occured' })
         })
     },
-    getBookedSlots:async (req,res) => {
+    getBookedSlots: async (req, res) => {
         try {
-            console.log(req.body);
             const response = await bookings.find(req.body, { slotTime: 1, _id: 0 })
             res.status(200).json(response)
         } catch (error) {
@@ -50,7 +49,6 @@ module.exports = {
                     console.log(error)
                     return res.status(500).json({ message: 'something went wrong' })
                 }
-                console.log(order);
                 res.status(200).json(order)
             })
 
@@ -60,14 +58,14 @@ module.exports = {
     },
 
     verifyPayment: async (req, res) => {
-     
+
         try {
             const { razorpay_order_id, razorpay_payment_id, razorpay_signature, salonId, slotTime, slotDate, price } = req.body;
             const sign = razorpay_order_id + "|" + razorpay_payment_id
-            const setPrice = price/100
+            const setPrice = price / 100
             const expectedSign = crypto.createHmac('sha256', process.env.RAZORPAY_SECRET).update(sign.toString()).digest('hex')
             if (razorpay_signature === expectedSign) {
-                  await bookings.create({userId:req._id,salonId,slotTime,slotDate,price:setPrice })
+                await bookings.create({ userId: req._id, salonId, slotTime, slotDate, price: setPrice })
                 return res.status(200).json({ message: 'payment verified succesfully' })
             }
             return res.status(400).json({ message: 'Invalid signature sent!' })

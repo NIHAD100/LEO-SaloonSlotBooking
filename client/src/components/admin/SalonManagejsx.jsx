@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import swal from "sweetalert";
-import { Link } from "react-router-dom";
 import axios from "../../api/axios";
 import SalonDetailsModal from "./SalonDetailsModal";
 
@@ -52,7 +51,7 @@ function SalonManagejsx() {
                 withCredentials: true,
               }
             );
-            console.log(data);
+
           } catch (error) {
             console.log(error.message);
           }
@@ -71,7 +70,7 @@ function SalonManagejsx() {
               withCredentials: true,
             })
             .then(({ data }) => {
-              console.log(data);
+
               setSalons(salons.filter((salon) => salon._id !== id));
             })
             .catch((error) => console.log(error.message));
@@ -150,8 +149,8 @@ function SalonManagejsx() {
                   <button
                     key={item}
                     className={`${item === selectedItem
-                        ? "bg-gray-100 text-gray-900"
-                        : "text-gray-700"
+                      ? "bg-gray-100 text-gray-900"
+                      : "text-gray-700"
                       } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                     onClick={() => {
                       setSelectedItem(item);
@@ -226,8 +225,8 @@ function SalonManagejsx() {
                             handleBlock(salon._id, salon.isBlocked)
                           }
                           className={`font-medium rounded ${salon.isBlocked
-                              ? "bg-green-600 hover:bg-green-700 duration-300"
-                              : "bg-red-600 hover:bg-red-700 duration-300"
+                            ? "bg-green-600 hover:bg-green-700 duration-300"
+                            : "bg-red-600 hover:bg-red-700 duration-300"
                             } p-2  `}
                         >
                           {salon.isBlocked ? "Unblock" : "Block"}

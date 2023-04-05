@@ -112,7 +112,7 @@ function ForgotPassword() {
     } catch (error) {
       console.log(error.message);
       setOtpMatch(error.message);
-      if(error.message === 'Firebase: Error (auth/invalid-verification-code).'){
+      if (error.message === 'Firebase: Error (auth/invalid-verification-code).') {
         setErrMsg('invalid OTP')
       } else if (!error?.response) {
         setErrMsg("no server response");
@@ -139,7 +139,7 @@ function ForgotPassword() {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
-      // localStorage.setItem("user", JSON.stringify(response.data));
+
       navigate("/signin");
     } catch (error) {
       console.log(error.message);

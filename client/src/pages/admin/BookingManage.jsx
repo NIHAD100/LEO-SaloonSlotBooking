@@ -2,9 +2,9 @@ import React from 'react'
 import BookingsManage from '../../components/admin/BookingsManage'
 
 function BookingManage() {
-  return (
-    <BookingsManage/>
-  )
+    return (
+        <BookingsManage />
+    )
 }
 
 export default BookingManage

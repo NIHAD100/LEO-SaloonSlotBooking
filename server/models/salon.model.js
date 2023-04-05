@@ -1,18 +1,18 @@
 const mongoose = require('mongoose')
 
 const salonSchema = new mongoose.Schema({
-    vmId:{
-        type:mongoose.Types.ObjectId,
-        ref:'vms'
+    vmId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'vms'
     },
     venueName: String,
     mobile: Number,
     district: String,
-    place:String,
+    place: String,
     actualPrice: Number,
     discountPercentage: Number,
     description: String,
-    image:String,
+    image: String,
     document: String,
     slots: [],
     lat: Number,
@@ -30,11 +30,11 @@ const salonSchema = new mongoose.Schema({
         default: false
     }
 },
-{
-    timestamps:{
-        createdAt:'created_at',
-        updatedAt:'updated_at'
-    }
-})
+    {
+        timestamps: {
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
+        }
+    })
 
-module.exports = mongoose.model('salons',salonSchema);
+module.exports = mongoose.model('salons', salonSchema);

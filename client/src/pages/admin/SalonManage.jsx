@@ -3,7 +3,7 @@ import SalonManagejsx from '../../components/admin/SalonManagejsx'
 
 function SalonManage() {
   return (
-      <SalonManagejsx/>
+    <SalonManagejsx />
   )
 }
 

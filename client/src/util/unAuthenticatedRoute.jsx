@@ -1,15 +1,14 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { checkIfUserLoggedIn } from "../redux/features/userSlice";
 
-const UnAuthenticatedRoute = ({children}) => {
+const UnAuthenticatedRoute = ({ children }) => {
 
-  const {isLoggedIn} = useSelector((state) => state);
+  const { isLoggedIn } = useSelector((state) => state);
   const location = useLocation();
-  console.log(isLoggedIn);
 
   if (checkIfUserLoggedIn()) {
-    return <Navigate to='/' replace/>;
+    return <Navigate to='/' replace />;
   }
   return children;
 };

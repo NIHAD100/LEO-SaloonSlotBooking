@@ -109,7 +109,7 @@ function VMAllVenue() {
                       <td class="px-6 py-4">{salon.slots.length}</td>
                       <td class="px-6 py-4 ">
                         <span className="mr-3">&#8377;{salon.actualPrice}</span>
-                       
+
                       </td>
                       <td class="px-6 py-4">{salon.description}</td>
                       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -127,7 +127,7 @@ function VMAllVenue() {
                         </a>
                       </td>
                       <td>
-                        <a onClick={()=>navigate(`/vm/venues/edit/${salon._id}`)} className="bg-blue-600 text-white cursor-pointer font-medium rounded p-2 hover:bg-blue-700 duration-300">Edit</a>
+                        <a onClick={() => navigate(`/vm/venues/edit/${salon._id}`)} className="bg-blue-600 text-white cursor-pointer font-medium rounded p-2 hover:bg-blue-700 duration-300">Edit</a>
                       </td>
                     </tr>
                   ))

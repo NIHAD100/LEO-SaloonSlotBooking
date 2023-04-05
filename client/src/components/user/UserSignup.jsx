@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Google from "../../assets/Google.png";
 import Signup from "../../assets/Signup.png";
 import { Info, Check, Cross } from "./assets/Iconos";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import setUpRecaptcha from "../../context/UserAuth";
 import jwtDecode from "jwt-decode";
@@ -41,7 +41,7 @@ function UserSignup() {
   const [validMatchPwd, setValidMatchPwd] = useState(false);
   const [matchPwdFocus, setMatchPwdFocus] = useState(false);
 
-  const [timer,setTimer] = useState(60);
+  const [timer, setTimer] = useState(60);
 
   const [errMsg, setErrMsg] = useState("");
 
@@ -57,32 +57,24 @@ function UserSignup() {
 
   useEffect(() => {
     let token = localStorage.getItem("user");
-    console.log(token);
     if (token) {
       let user = jwtDecode(token);
-      console.log(user);
     }
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
     setValidName(result);
   }, [user]);
 
   useEffect(() => {
     const result = MOBILE_REGEX.test(mobile);
-    console.log(result);
-    console.log(mobile);
     setValidMobile(result);
   }, [mobile]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatchPwd(match);
@@ -99,13 +91,13 @@ function UserSignup() {
 
   useEffect(() => {
     let Timer;
-    if(success && timer>0){
-      Timer = setTimeout(()=>{
-        setTimer(timer-1);
-      },1000);
+    if (success && timer > 0) {
+      Timer = setTimeout(() => {
+        setTimer(timer - 1);
+      }, 1000);
     }
     return () => clearTimeout(Timer);
-  }, [success,timer]);
+  }, [success, timer]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -159,7 +151,7 @@ function UserSignup() {
             withCredentials: true,
           }
         );
-        dispatch(setUserDetails({name:user,mobile}))
+        dispatch(setUserDetails({ name: user, mobile }))
         localStorage.setItem("user", JSON.stringify(response.data));
         setUser("");
         setMobile("");
@@ -169,7 +161,7 @@ function UserSignup() {
       });
     } catch (error) {
       console.log(error.message);
-      if(error.message === 'Firebase: Error (auth/invalid-verification-code).'){
+      if (error.message === 'Firebase: Error (auth/invalid-verification-code).') {
         setErrMsg('invalid OTP')
       } else if (!error?.response) {
         setErrMsg("no server response");
@@ -181,12 +173,12 @@ function UserSignup() {
     }
   };
 
-  const handleResendOTP = async ()=> {
-    if(timer!==0)return;
+  const handleResendOTP = async () => {
+    if (timer !== 0) return;
     try {
       const otpResponse = await setUpRecaptcha("+91" + mobile);
-        setConfirm(otpResponse);
-      
+      setConfirm(otpResponse);
+
     } catch (error) {
       console.log(error.message)
     }
@@ -253,7 +245,7 @@ function UserSignup() {
                           </p>
                         </div>
                         <div id="recaptcha-container" />
-                        <p className={`  ${timer===0?"text-blue-500 hover:underline cursor-pointer":"text-cyan-600 cursor-not-allowed"}`} onClick={handleResendOTP} disabled={timer===0?false:true}>Resend OTP <span className={`text-black  ${timer===0 && 'hidden'}`}>{timer}</span></p>
+                        <p className={`  ${timer === 0 ? "text-blue-500 hover:underline cursor-pointer" : "text-cyan-600 cursor-not-allowed"}`} onClick={handleResendOTP} disabled={timer === 0 ? false : true}>Resend OTP <span className={`text-black  ${timer === 0 && 'hidden'}`}>{timer}</span></p>
                         <button
                           className="w-full select-none p-3 bg-emerald-700 rounded-full text-white text-xl font-roboto mt-5 font-semibold hover:bg-emerald-800 disabled:hover:bg-emerald-700"
                           disabled={!validOTP ? true : false}
@@ -442,9 +434,9 @@ function UserSignup() {
                           className="w-full select-none p-4 bg-emerald-700 rounded-full text-white text-xl font-roboto mt-5 font-semibold hover:bg-emerald-800 disabled:hover:bg-emerald-700"
                           disabled={
                             !validName ||
-                            !validMobile ||
-                            !validPwd ||
-                            !validMatchPwd
+                              !validMobile ||
+                              !validPwd ||
+                              !validMatchPwd
                               ? true
                               : false
                           }

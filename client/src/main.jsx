@@ -9,15 +9,15 @@ import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <AuthProvider>
-            <Routes>
-              <Route path="/*" element={<App />} />
-            </Routes>
-          </AuthProvider>
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="/*" element={<App />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>
 );

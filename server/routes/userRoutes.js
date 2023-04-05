@@ -20,10 +20,10 @@ router.post('/vmSignup', vmController.vmSignup)
 router.get('/venues/:district', salonController.getSalons)
 router.get('/venue/:_id', salonController.getSalon)
 
-router.post('/bookedSlot',salonController.getBookedSlots)
+router.post('/bookedSlot', salonController.getBookedSlots)
 
 router.post('/book', verifyToken, salonController.bookSalon)
-router.post('/verifyPayment',verifyToken,salonController.verifyPayment)
+router.post('/verifyPayment', verifyToken, salonController.verifyPayment)
 
 // router.put('/profile',verifyToken,userController.updateProfile)
 

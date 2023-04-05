@@ -13,7 +13,7 @@ function UsersManagejsx() {
   useEffect(() => {
     axios.get(GET_USERS).then(({ data }) => {
       setUsers(data.userDatas)
-      console.log(data.userDatas)
+
     }).catch(err => {
       console.log(err.message)
     })
@@ -55,9 +55,7 @@ function UsersManagejsx() {
                 <th scope="col" className="px-6 py-3">
                   contact information
                 </th>
-                {/* <th scope="col" class="px-6 py-3">
-                  email
-                </th> */}
+                { }
                 <th scope="col" className="px-6 py-3">
                   Action
                 </th>

@@ -3,7 +3,7 @@ import Dashboardjsx from '../../components/admin/Dashboardjsx'
 
 function Dashboard() {
   return (
-      <Dashboardjsx/>
+    <Dashboardjsx />
   )
 }
 

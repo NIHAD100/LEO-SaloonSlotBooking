@@ -4,7 +4,7 @@ import VMManagejsx from '../../components/admin/VMManagejsx'
 
 function VMManage() {
   return (
-      <VMManagejsx/>
+    <VMManagejsx />
   )
 }
 

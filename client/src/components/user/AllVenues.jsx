@@ -90,7 +90,7 @@ function AllVenues() {
                     <p className="text-[#4f4c4a] ml-1">onwards</p>
                   </div>
                 </div>
-               
+
               </div>
             ))
           ) : (

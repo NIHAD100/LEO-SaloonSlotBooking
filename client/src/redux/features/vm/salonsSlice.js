@@ -15,10 +15,9 @@ const vmSalonsSlice = createSlice({
             const { id } = action.payload;
             const salonToUpdate = state.salons.find(salon => salon._id === id);
             if (salonToUpdate) {
-                console.log(salonToUpdate);
-              salonToUpdate.vmIsBlocked = !salonToUpdate.vmIsBlocked;
+                salonToUpdate.vmIsBlocked = !salonToUpdate.vmIsBlocked;
             }
-          }
+        }
     },
     extraReducers: {
         [Salons.pending]: (state) => {
@@ -30,7 +29,6 @@ const vmSalonsSlice = createSlice({
             state.salons = action.payload
         },
         [Salons.rejected]: (state, action) => {
-            console.log(action.error)
             state.loading = false
             state.error = action.error.message
         }

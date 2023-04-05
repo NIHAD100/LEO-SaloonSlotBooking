@@ -7,25 +7,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSlots } from "../../redux/features/bookingSlice";
 import axios from "../../api/axios";
 
-function  BookingCalendar({ slots,salonId }) {
+function BookingCalendar({ slots, salonId }) {
   const [date, setDate] = useState(new Date());
   const [day, setDay] = useState(date.getDay());
   const [currentHour, setCurrentHour] = useState(date.getHours());
-  const [bookedslot,setBookedslot] = useState([])
+  const [bookedslot, setBookedslot] = useState([])
   const currentDate = new Date();
 
   const dispatch = useDispatch();
 
-  const getBookedSlots = async (salonId,date) => {
+  const getBookedSlots = async (salonId, date) => {
     const slotDate = `${date.getDate()},${date.toLocaleString("default", { month: "long" })},${date.getFullYear()}`
-    const {data}  = await axios.post('/bookedSlot',{salonId,slotDate})
+    const { data } = await axios.post('/bookedSlot', { salonId, slotDate })
     setBookedslot(data)
-    console.log('data fonr backend',data);
   }
 
-  useEffect(()=>{
-    getBookedSlots(salonId,date)
-  },[date])
+  useEffect(() => {
+    getBookedSlots(salonId, date)
+  }, [date])
 
 
 
@@ -37,7 +36,7 @@ function  BookingCalendar({ slots,salonId }) {
   const selectedSlots = useSelector((state) => state.booking);
 
   function handleSlot(slot) {
-    if(bookedslot.find(per=>per.slotTime===slot)) return
+    if (bookedslot.find(per => per.slotTime === slot)) return
     if (date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth() && date.getDate() === currentDate.getDate() && parseInt(slot.substr(0, 2)) < currentHour) return;
     const dayy = date.getDate();
     const month = date.toLocaleString("default", { month: "long" });
@@ -52,25 +51,23 @@ function  BookingCalendar({ slots,salonId }) {
         {slots[day].slots.length ? (
           slots[day].slots.map((slot) => (
             <div
-              className={`p-0.5  ${
+              className={`p-0.5  ${bookedslot.find(per => per.slotTime === slot) ? "bg-red-600 cursor-not-allowed" :
 
-                bookedslot.find(per=>per.slotTime===slot) ? "bg-red-600 cursor-not-allowed":
-
-                date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth() && date.getDate() === currentDate.getDate() && parseInt(slot.substr(0, 2)) <= currentHour
-                  ? "bg-slate-200 cursor-not-allowed"
-                  : selectedSlots.date === `${date.getDate()},${date.toLocaleString("default", { month: "long" })},${date.getFullYear()}` && selectedSlots.slot === slot ?
-                  "bg-green-400":
-                  "hover:bg-slate-200 bg-slate-50"
-              } cursor-pointer border m-1 font-light text-xs rounded`}
+                  date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth() && date.getDate() === currentDate.getDate() && parseInt(slot.substr(0, 2)) <= currentHour
+                    ? "bg-slate-200 cursor-not-allowed"
+                    : selectedSlots.date === `${date.getDate()},${date.toLocaleString("default", { month: "long" })},${date.getFullYear()}` && selectedSlots.slot === slot ?
+                      "bg-green-400" :
+                      "hover:bg-slate-200 bg-slate-50"
+                } cursor-pointer border m-1 font-light text-xs rounded`}
               onClick={() =>
-                
-                bookedslot.find(per=>per.slotTime===slot) ? "":
 
-                date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth() && date.getDate() === currentDate.getDate()
-                  ? parseInt(slot.substr(0, 2)) <= currentHour
-                    ? ""
+                bookedslot.find(per => per.slotTime === slot) ? "" :
+
+                  date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth() && date.getDate() === currentDate.getDate()
+                    ? parseInt(slot.substr(0, 2)) <= currentHour
+                      ? ""
+                      : handleSlot(slot)
                     : handleSlot(slot)
-                  : handleSlot(slot)
               }
             >
               {slot}

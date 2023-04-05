@@ -1,8 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-export const AuthrizeUser = ({children}) => {
+export const AuthrizeUser = ({ children }) => {
     const token = localStorage.getItem('user');
-    if(!token){
+    if (!token) {
         return <Navigate to='/login' replace={true}></Navigate>
     }
     return children;

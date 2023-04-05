@@ -30,7 +30,6 @@ function Dashboardjsx() {
             Authorization:token
           }
         })
-        console.table(data)
         setCounts(data)
       } catch (error) {
         console.log(error)

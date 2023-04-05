@@ -4,22 +4,20 @@ const jwt = require('jsonwebtoken')
 require('dotenv/config')
 
 module.exports = {
-    mobileExist:(req,res) => {
+    mobileExist: (req, res) => {
         vms.findOne({ mobile: req.body.mobile }).then(async (response) => {
             if (response) {
                 return res.sendStatus(409); //user already exist
             } else {
                 return res.sendStatus(200);
             }
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err.message)
             res.status(400).json({ message: 'error occured', err: err.message })
         })
     },
-    
-    vmSignup: async (req,res) => {
-        console.log(req.body)
-        console.log(req.body.image)
+
+    vmSignup: async (req, res) => {
         vms.findOne({ mobile: req.body.mobile }).then(async (response) => {
             if (response) {
                 return res.sendStatus(409); //user already exist
@@ -32,12 +30,12 @@ module.exports = {
                         { expiresIn: '7d' }
                     )
                     res.status(201).json({ accessToken })
-                }).catch(err=>{
+                }).catch(err => {
                     console.log(err.message)
                     res.status(400).json({ message: 'error occured', err: err.message })
                 })
             }
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err.message)
             res.status(400).json({ message: 'error occured', err: err.message })
         })

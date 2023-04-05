@@ -5,10 +5,10 @@ const RequireAuth = () => {
     const { auth } = useAuth();
     const location = useLocation();
 
-    return(
+    return (
         auth?.mobile
             ? <Outlet />
-            : <Navigate to='/signin' state={{from : location}}  />
+            : <Navigate to='/signin' state={{ from: location }} />
     );
 }
 

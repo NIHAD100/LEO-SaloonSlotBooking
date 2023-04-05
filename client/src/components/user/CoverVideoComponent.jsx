@@ -42,7 +42,7 @@ function CoverVideoComponent() {
           <input type="text" className=" px-16 py-4 rounded-full" placeholder=" Search for cities" />
         </div>
         <div className="flex flex-wrap" >
-          {places.map((place)=>
+          {places.map((place) =>
             <Link to={`/venues/${place}`} className="p-2 text-gray-700 opacity-80 hover:shadow-lg cursor-pointer bg-white rounded m-2" >{place}</Link>
           )
           }

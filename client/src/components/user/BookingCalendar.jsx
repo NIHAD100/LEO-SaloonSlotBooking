@@ -45,8 +45,10 @@ function BookingCalendar({ slots, salonId }) {
   }
 
   return (
-    <div className="flex">
+    <div className="flex flex-col justify-center lg:flex-row">
+    <div className="flex justify-center">
       <Calendar minDate={new Date()} maxDate={addDays(new Date(), 6)} date={date} showMonthAndYearPickers={false} onChange={handleSelect} color="#00000" />
+      </div>
       <div className="flex flex-wrap mx-auto items-center">
         {slots[day].slots.length ? (
           slots[day].slots.map((slot) => (

@@ -3,7 +3,7 @@ const userController = require('../controllers/userController/userSignin&Signup'
 const vmController = require('../controllers/userController/vmController')
 const salonController = require('../controllers/userController/salonController')
 
-const verifyToken = require('../middleware/vm.verifyToken')
+const verifyToken = require('../middleware/user.verifyToken')
 
 router.post('/signup', userController.userSignup)
 router.post('/signin', userController.userSignin)
@@ -24,6 +24,7 @@ router.post('/bookedSlot', salonController.getBookedSlots)
 
 router.post('/book', verifyToken, salonController.bookSalon)
 router.post('/verifyPayment', verifyToken, salonController.verifyPayment)
+router.put('/changeName',verifyToken,userController.setName)
 
 // router.put('/profile',verifyToken,userController.updateProfile)
 

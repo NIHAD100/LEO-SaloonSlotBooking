@@ -77,18 +77,18 @@ function BookingSection({ salon }) {
   return (
     <div className="bg-[#F3F5F9]">
       <div className="container">
-        <div className="flex space-x-10">
+        <div className="flex flex-col md:flex-row space-x-10">
           {isLoggedIn ? (
             <>
-              <div className="w-8/12 my-11 space-y-6   ">
+              <div className=" md:mx-0 md:w-8/12 my-11 space-y-6   ">
                 {
                   salon.slots?.length && (
                     <div className="bg-white rounded-lg">
-                      <div className="py-2 ">
+                      <div className="py-2 hidden sm:block">
                         <span className=" py-2 px-3 w-3 -ml-7 bg-[#1a273a] text-white rounded-full">2</span>
                         <a className="text-2xl font-roboto font-semibold mx-2 text-[#504a4a] ">Select Slots</a>
                       </div>
-                      <div className=" px-4 py-5 space-x-9 ">
+                      <div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4 px-4 py-5">
                         <BookingCalendar slots={salon.slots} salonId={salon._id} />
                       </div>
                     </div>

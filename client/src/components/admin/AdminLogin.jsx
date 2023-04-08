@@ -15,6 +15,7 @@ function AdminLogin() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.admin)
+  console.log(isLoggedIn)
 
   const navigate = useNavigate();
 
@@ -38,10 +39,11 @@ function AdminLogin() {
         }
       );
       localStorage.setItem('admin', data.accessToken)
+      dispatch(setAdminLoggedIn());
       setName('');
       setPassword('')
-      dispatch(setAdminLoggedIn());
     } catch (error) {
+      console.log(error);
       if (!error?.response) {
         setErrMsg("no server response");
       } else if (error.repsonse?.status === 400) {
@@ -56,11 +58,11 @@ function AdminLogin() {
 
   return (
     <>
-      {isLoggedIn && <Navigate to='/admin' replace />}
+      {isLoggedIn.isLoggedIn && <Navigate to='/admin' replace />}
       <div className="bg-gradient-to-r h-screen from-emerald-50 to-emerald-100">
         <div className="p-4">
           <span className="text-bold text-xl sm:text-3xl italic font-semibold self-center cursor-pointer select-none">
-            ENTURF!
+            LEO!
           </span>
         </div>
         <div className="">

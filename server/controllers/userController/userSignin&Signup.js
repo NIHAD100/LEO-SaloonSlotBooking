@@ -124,5 +124,17 @@ module.exports = {
 
             }
         }
+    },
+    setName: async (req, res) => {
+        const { name } = req.body
+        if (!name) return res.status(400).json({ message: 'name - field is required' });
+        try {
+            let user = await users.findOneAndUpdate({ _id: req._id }, { $set: { name } }, { new: true })
+            return res.status(200).json({ message: 'name changed succesfully', name: user.name });
+        } catch (error) {
+            console.log(error.message)
+            res.status(400).json({ message: 'error occured', error: error.messaage })
+        }
     }
+
 }

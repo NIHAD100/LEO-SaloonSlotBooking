@@ -20,11 +20,13 @@ const adminSlice = createSlice({
     },
     reducers: {
         setAdminLoggedIn: (state) => {
+
             state.isLoggedIn = true;
         },
         setAdminLoggedOut: (state) => {
-            state.isLoggedIn = false;
+            console.log('setAdminLoggedOut is working')
             localStorage.removeItem('admin');
+            state.isLoggedIn = false;
         }
     }
 })

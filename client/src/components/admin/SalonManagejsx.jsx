@@ -12,6 +12,7 @@ function SalonManagejsx() {
   const [filteredData, setFilteredData] = useState([]);
 
   const [modal, setModal] = useState(false)
+  const [indexNo,setIndexNo] = useState(null)
 
   useEffect(() => {
     axios
@@ -190,7 +191,7 @@ function SalonManagejsx() {
             </thead>
             {filteredData.length ? (
               <tbody>
-                {filteredData.map((salon) => (
+                {filteredData.map((salon,index) => (
                   <tr className="bg-[#189AB4] border-b border-[#05445E]">
                     <th
                       scope="row"
@@ -234,12 +235,15 @@ function SalonManagejsx() {
                       )}
                     </td>
                     <td className="px-6 py-4 ">
-                      <a onClick={() => setModal(true)}
+                      <a onClick={() =>{
+                        setModal(true)
+                        setIndexNo(index)
+                      } }
                         className="bg-[#05445E] hover:bg-[#05141a] rounded duration-300 p-2 cursor-pointer"
                       >
                         Know more
                       </a>
-                      {modal && <SalonDetailsModal salons={salons} modal={modal} id={salon._id} handleApprove={handleApprove} handleBlock={handleBlock} isBlocked={salon.isBlocked} approved={salon.approved} setModal={setModal} />}
+                      {modal && index === indexNo && <SalonDetailsModal salons={salons} modal={modal} id={salon._id} handleApprove={handleApprove} handleBlock={handleBlock} isBlocked={salon.isBlocked} approved={salon.approved} setModal={setModal} />}
                     </td>
                   </tr>
                 ))}

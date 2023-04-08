@@ -9,6 +9,7 @@ import VMVenueAdd from "../pages/manager/VMVenueAdd"
 import AuthenticatedRoute from "../util/vm/authenticatedRoute"
 import UnAuthenticatedRoute from "../util/vm/unAuthenticatedRoute"
 import Pending from "../pages/manager/Pending"
+import VMAllBookingsPage from "../pages/manager/VMAllBookingsPage"
 
 
 function VmRoutes() {
@@ -23,6 +24,7 @@ function VmRoutes() {
         <Route path="venues/edit/:id" element={<AuthenticatedRoute><VMEditVenue /></AuthenticatedRoute>} />
         <Route path="venues/add" element={<AuthenticatedRoute><VMVenueAdd /></AuthenticatedRoute>} />
         <Route path="profile" element={<AuthenticatedRoute><VMProfileEdit /></AuthenticatedRoute>} />
+        <Route path="bookings" element={<AuthenticatedRoute><VMAllBookingsPage /></AuthenticatedRoute>} />
       </Route>
     </Routes>
   )

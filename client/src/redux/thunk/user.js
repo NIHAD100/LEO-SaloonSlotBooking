@@ -14,15 +14,3 @@ export const signin = createAsyncThunk(
     }
   }
 )
-
-// async (data, thunkAPI) => {
-//   try {
-//     const { data: response } = await axios.post("/signin", data)
-
-//     console.log(response);
-//     return response;
-//   } catch (error) {
-//     console.log(error);
-//     return thunkAPI.rejectWithValue(error?.response?.data );
-//   }
-// }

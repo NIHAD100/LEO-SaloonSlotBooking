@@ -5,6 +5,10 @@ import { LocationIcon, GetDirection } from '../../assets/LocationIcon'
 
 function SingleVenuejsx({ salon, part, setPart }) {
 
+  const handleLocation = () => {
+    window.open(`https://www.google.com/maps/search/?api=1&query=${salon.lat},${salon.lng}`);
+  }
+
   return (
     <div>
       <div className='bg-white '>
@@ -20,8 +24,8 @@ function SingleVenuejsx({ salon, part, setPart }) {
                 <div>
                   <h1 className='font-bold text-2xl text-roboto'>{salon.venueName}</h1>
                   <div className='flex gap-x-3'>
-                    <p className=''>&#8377;{salon.actualPrice}</p>
-                    <p>{salon.discountPercentage}% off </p>
+                    <p className='font-bold text-gray-500'>&#8377; {salon.actualPrice - (salon.actualPrice * salon.discountPercentage / 100)}</p>
+                    <p className='line-through'>&#8377; {salon.actualPrice} </p>
 
                   </div>
 
@@ -47,25 +51,25 @@ function SingleVenuejsx({ salon, part, setPart }) {
                   </div>
                 </div>
                 <div>
-                  <div className='text-md text-cyan-500 flex'>
+                  <div className='text-md text-cyan-500 flex cursor-pointer' onClick={handleLocation}>
                     <div className='mt-1'>
                       <GetDirection />
                     </div>
                     <div>
-                      <p className='text-base font-semibold ml-1'>GET DIRECTION</p>
+                      <p className='text-base font-semibold ml-1'>GET LOCATION</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className='w-2/5'>
-            <div className='flex space-x-28 pt-12 justify-center '>
+          <div className='sm:w-2/5'>
+            <div className='flex pt-12 justify-center '>
               <div className={`${part === 'bookingSection' ? 'text-cyan-500' : 'text-[#807474]'} cursor-pointer`} onClick={(() => setPart('bookingSection'))}>
-                <h1 className=''>BOOK A SLOT</h1>
+                <h1 className='inline'>BOOK A SLOT</h1>
                 <hr className={`mt-3 border-2 ${part === 'bookingSection' ? 'border-cyan-500' : 'border-[#807474]'}  rounded-t-lg`} />
               </div>
-              <div className={`${part !== 'bookingSection' ? 'text-cyan-500' : 'text-[#807474]'} cursor-pointer`} onClick={(() => setPart('detailsSection'))}>
+              <div className={`${part !== 'bookingSection' ? 'text-cyan-500' : 'text-[#807474]'} cursor-pointer ml-4`} onClick={(() => setPart('detailsSection'))}>
                 <h1>DETAILS</h1>
                 <hr className={`mt-3 ${part !== 'bookingSection' ? 'border-cyan-500' : 'border-[#807474]'} border-2 rounded-t-lg`} />
               </div>

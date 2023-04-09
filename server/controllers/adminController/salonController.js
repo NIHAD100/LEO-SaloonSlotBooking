@@ -20,7 +20,7 @@ module.exports = {
     },
     deleteSalon: async (req, res) => {
         salons.findByIdAndDelete(req.params.id).then(response => {
-            res.status(200).json({ message: 'turf deleted successfully' });
+            res.status(200).json({ message: 'salon deleted successfully' });
         }).catch(err => {
             console.log(err.message);
             res.status(400).json({ message: 'error occured' });

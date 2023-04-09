@@ -51,8 +51,8 @@ function BookingCalendar({ slots, salonId }) {
       </div>
       <div className="flex flex-wrap mx-auto items-center">
         {slots[day].slots.length ? (
-          slots[day].slots.map((slot) => (
-            <div
+          slots[day].slots.map((slot,index) => (
+            <div key={index}
               className={`p-0.5  ${bookedslot.find(per => per.slotTime === slot) ? "bg-red-600 cursor-not-allowed" :
 
                   date.getFullYear() === currentDate.getFullYear() && date.getMonth() === currentDate.getMonth() && date.getDate() === currentDate.getDate() && parseInt(slot.substr(0, 2)) <= currentHour

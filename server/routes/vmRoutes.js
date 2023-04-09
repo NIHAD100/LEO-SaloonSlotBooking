@@ -12,7 +12,8 @@ router.get('/salon/:id', salonController.getSalon)
 router.put('/salon', salonController.updateSalon)
 router.put('/salon/block', verifyToken, salonController.changeBlock)
 
-router.get('/bookings',verifyToken, bookingController.getBookings)
+router.get('/bookings', verifyToken, bookingController.getBookings)
+
 
 router.put('/profile', verifyToken, vmController.updateProfile)
 

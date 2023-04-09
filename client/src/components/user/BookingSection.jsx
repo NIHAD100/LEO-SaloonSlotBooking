@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { clearBooking } from "../../redux/features/bookingSlice";
+import swal from "sweetalert";
+import { updateWallet } from "../../redux/features/userSlice";
+import toast from "react-hot-toast";
 
 import BookingCalendar from "./BookingCalendar";
 
@@ -15,7 +18,7 @@ function BookingSection({ salon }) {
   const navigate = useNavigate();
 
   const slotBooking = useSelector((state) => state.booking);
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { isLoggedIn, wallet } = useSelector((state) => state.user);
 
 
 
@@ -25,53 +28,104 @@ function BookingSection({ salon }) {
     };
   }, []);
 
-  async function handleBooknow() {
+  function showPaymentOptions() {
+    if (!wallet) return handleBooknow("online");
+    swal({
+      title: "Select Payment Option",
+      text: `Choose your preferred payment option, wallet balance Rs.${wallet}.00 , amount to be paid in online
+       ${salon.actualPrice - salon.actualPrice * (salon.discountPercentage / 100) - wallet < 0 ? "0" : salon.actualPrice - salon.actualPrice * (salon.discountPercentage / 100) - wallet
+        }`,
+      buttons: {
+        offline: {
+          text: "include wallet",
+          value: "wallet",
+          className: "bg-green-500 uppercase",
+        },
+        online: {
+          text: "fully Online Payment",
+          value: "online",
+          className: "bg-green-500 uppercase",
+        },
+      },
+    }).then((value) => {
+      // The value parameter contains the value of the clicked button
+      if (value === "wallet") return handleBooknow("wallet");
+      else if (value === "online") return handleBooknow("online");
+    });
+  }
+
+  async function handleBooknow(method) {
     const token = localStorage.getItem("user");
+    console.log(token)
     try {
-      let { data } = await axios.post(
+      let response = await axios.post(
         "/book",
-        { salon: salon._id },
+        { salon: salon._id, method, slotDate: slotBooking.date, slotTime: slotBooking.slot },
         {
           headers: {
             Authorization: token,
           },
         }
       );
-      initPayment(data);
+      console.log("response", response);
+      if (response.status === 201) {
+        dispatch(updateWallet({ wallet: response.data.wallet }));
+        toast.success(`salon Booked Successfully`);
+        navigate("/confirmation");
+        return;
+      }
+      initPayment(response.data);
 
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   }
 
   function initPayment(datas) {
     const token = localStorage.getItem("user");
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEYID,
-      amount: datas.amount,
-      currency: datas.currency,
-      name: salon.venueName,
-      description: "payment for book a slot",
-      image: salon.image,
-      order_id: datas.id,
-      handler: async (response) => {
-        try {
-          const { data } = await axios.post("/verifyPayment", { ...response, salonId: salon._id, slotDate: slotBooking.date, slotTime: slotBooking.slot, price: datas.amount }, {
-            headers: {
-              Authorization: token,
-            },
-          });
-          navigate('/confirmation')
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
+    try {
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEYID,
+        amount: datas.amount,
+        currency: datas.currency,
+        name: salon.venueName,
+        description: "payment for book a slot",
+        image: salon.image,
+        order_id: datas.id,
+        handler: async (response) => {
+          try {
+            console.log("hey");
+            const { data } = await axios.post(
+              "/verifyPayment",
+              {
+                ...response,
+                salonId: salon._id,
+                slotDate: slotBooking.date,
+                slotTime: slotBooking.slot,
+                price: datas.amount,
+              },
+              {
+                headers: {
+                  Authorization: token,
+                },
+              }
+            );
+            dispatch(updateWallet({ wallet: data.wallet }))
+            navigate("/confirmation");
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (
@@ -109,7 +163,7 @@ function BookingSection({ salon }) {
                     </div>
                     <div className="bg-green-400/70 absolute bottom-0 rounded-b-md text-xl w-full">
                       <div className="p-1 text-white">
-                        <button className="bg-green-600/90 rounded py-1 px-2" onClick={handleBooknow}>
+                        <button className="bg-green-600/90 rounded py-1 px-2" onClick={showPaymentOptions}>
                           BOOK NOW{" "}
                         </button>
                       </div>

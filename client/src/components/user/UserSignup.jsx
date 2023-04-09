@@ -143,7 +143,7 @@ function UserSignup() {
     }
     try {
       await confirm.confirm(OTP).then(async () => {
-        const response = await axios.post(
+        const {data} = await axios.post(
           SIGNUP_URL,
           JSON.stringify({ name: user, mobile, password: pwd }),
           {
@@ -151,8 +151,8 @@ function UserSignup() {
             withCredentials: true,
           }
         );
-        dispatch(setUserDetails({ name: user, mobile }))
-        localStorage.setItem("user", JSON.stringify(response.data));
+        dispatch(setUserDetails({name:user,mobile,wallet:0}))
+        localStorage.setItem("user", JSON.stringify(data));
         setUser("");
         setMobile("");
         setPwd("");

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link, NavLink, Navigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdminLoggedOut } from "../../redux/features/adminSlice";
 
 function SideAndNav() {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const handleSignout = () => {
     dispatch(setAdminLoggedOut());
@@ -15,7 +17,7 @@ function SideAndNav() {
   const [aside, asideChange] = useState(false);
   return (
     <>
-    {/* {!admin.isLoggedIn && <Navigate to='/admin/signin' />} */}
+      {/* {!admin.isLoggedIn && <Navigate to='/admin/signin' />} */}
       <nav className="fixed top-0 z-50 w-full bg-[#189AB4] border-b border-[#05445E] dark:bg-gray-800 dark:border-gray-700">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">

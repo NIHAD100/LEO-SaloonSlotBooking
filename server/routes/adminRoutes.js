@@ -7,6 +7,7 @@ const verifyToken = require('../middleware/admin.verifyToken');
 const bookingController = require('../controllers/adminController/BookingController');
 
 router.post('/signin', adminController.adminLogin);
+
 router.get('/', verifyToken, adminController.getDashboardDetails)
 
 router.get('/users', userController.getUsers)

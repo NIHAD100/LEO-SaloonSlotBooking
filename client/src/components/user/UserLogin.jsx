@@ -79,7 +79,7 @@ function UserLogin() {
                         type="number"
                         id="mobile"
                         ref={mobileRef}
-                        className="border my-3 border-gray-300 text-gray-900 text-md rounded-md  w-full p-3 ring-green-300 ring-offset-1 focus:ring dark:text-white dark:focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        className="border my-3 border-gray-300 text-gray-900 text-md rounded-md  w-full p-3 ring-green-300 ring-offset-1 focus:ring "
                         placeholder="Mobile"
                         autoComplete="off"
                         required
@@ -90,7 +90,7 @@ function UserLogin() {
                         <input
                           type={passwordHide ? "text" : "password"}
                           id="password"
-                          className="border my-3 border-gray-300 text-gray-900 text-md rounded-md  w-full p-3 ring-green-300 ring-offset-1 focus:ring dark:text-white dark:focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                          className="border my-3 border-gray-300 text-gray-900 text-md rounded-md  w-full p-3 ring-green-300 ring-offset-1 focus:ring "
                           placeholder="Password"
                           required
                           value={pwd}

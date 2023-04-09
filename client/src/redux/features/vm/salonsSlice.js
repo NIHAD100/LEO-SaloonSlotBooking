@@ -19,19 +19,20 @@ const vmSalonsSlice = createSlice({
             }
         }
     },
-    extraReducers: {
-        [Salons.pending]: (state) => {
+    extraReducers: (builder) => {
+        builder.addCase(Salons.pending, (state) => {
             state.loading = true
             state.error = null
-        },
-        [Salons.fulfilled]: (state, action) => {
+        })
+
+        builder.addCase(Salons.fulfilled, (state, action) => {
             state.loading = false
             state.salons = action.payload
-        },
-        [Salons.rejected]: (state, action) => {
+        })
+        builder.addCase(Salons.rejected, (state, action) => {
             state.loading = false
             state.error = action.error.message
-        }
+        })
     }
 })
 

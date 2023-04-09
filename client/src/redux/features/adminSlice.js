@@ -12,19 +12,20 @@ export const checkIfAdminLoggedIn = () => {
     return true;
 };
 
+const initialState = {
+    isLoggedIn: checkIfAdminLoggedIn(),
+}
+
 
 const adminSlice = createSlice({
     name: 'admin',
-    initialState: {
-        isLoggedIn: checkIfAdminLoggedIn(),
-    },
+    initialState,
     reducers: {
         setAdminLoggedIn: (state) => {
 
             state.isLoggedIn = true;
         },
         setAdminLoggedOut: (state) => {
-            console.log('setAdminLoggedOut is working')
             localStorage.removeItem('admin');
             state.isLoggedIn = false;
         }

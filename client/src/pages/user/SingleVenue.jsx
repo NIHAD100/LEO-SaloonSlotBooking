@@ -24,7 +24,7 @@ function SingleVenue() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen h-auto bg-[#F3F5F9]">
       <SingleVenuejsx salon={salon} part={part} setPart={setPart} />
       {part === "bookingSection" ? <BookingSection salon={salon} /> : <SalonDetailsPart salon={salon} />}
     </div>

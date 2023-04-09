@@ -368,7 +368,7 @@ function VmVenueAddNew() {
               </label>
               <textarea
                 id="description"
-                placeholder="Type something about your turf"
+                placeholder="Type something about your salon"
                 name="description"
                 rows="4"
                 value={description}

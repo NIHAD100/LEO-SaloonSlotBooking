@@ -14,7 +14,7 @@ function AdminLogin() {
   const nameInput = useRef();
 
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.admin)
+  const admin = useSelector(state=>state.admin)
   console.log(isLoggedIn)
 
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ function AdminLogin() {
 
   return (
     <>
-      {isLoggedIn.isLoggedIn && <Navigate to='/admin' replace />}
+      {admin.isLoggedIn && <Navigate to='/admin' replace/>}
       <div className="bg-gradient-to-r h-screen from-emerald-50 to-emerald-100">
         <div className="p-4">
           <span className="text-bold text-xl sm:text-3xl italic font-semibold self-center cursor-pointer select-none">

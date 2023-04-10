@@ -4,7 +4,7 @@ import axios from "../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { clearBooking } from "../../redux/features/bookingSlice";
 import swal from "sweetalert";
-import { updateWallet } from "../../redux/features/userSlice";
+import { updateWallet, userLogout } from "../../redux/features/userSlice";
 import toast from "react-hot-toast";
 
 import BookingCalendar from "./BookingCalendar";
@@ -77,6 +77,7 @@ function BookingSection({ salon }) {
       initPayment(response.data);
 
     } catch (error) {
+      if(error.response?.data?.msg === 'User blocked') dispatch(userLogout())
       console.log(error);
     }
   }
@@ -115,6 +116,7 @@ function BookingSection({ salon }) {
             navigate("/confirmation");
           } catch (error) {
             console.log(error);
+            if(error.response?.data?.msg === 'User blocked') dispatch(userLogout())
           }
         },
         theme: {

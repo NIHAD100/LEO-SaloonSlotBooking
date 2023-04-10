@@ -17,12 +17,18 @@ function ProfileAndBooking() {
   useEffect(() => {
     const token = localStorage.getItem("user");
     const getBookings = async () => {
-      let { data } = await axios.get("/bookings", {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setBookings(data);
+      try {
+        let { data } = await axios.get("/bookings", {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setBookings(data);
+        
+      } catch (error) {
+        console.log(error)
+        if(error.response?.data?.msg === 'User blocked') dispatch(userLogout())
+      }
     };
 
     getBookings();
@@ -80,6 +86,7 @@ function ProfileAndBooking() {
             setBookings(newArray);
           } catch (error) {
             console.log(error)
+            if(error.response?.data?.msg === 'User blocked') dispatch(userLogout())
             toast.error(`${(error.response && error.response.data && error.response.data.message) || error.message || error.toString()}`);
           }
         }

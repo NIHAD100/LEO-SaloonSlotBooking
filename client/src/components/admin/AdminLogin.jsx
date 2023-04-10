@@ -15,7 +15,6 @@ function AdminLogin() {
 
   const dispatch = useDispatch();
   const admin = useSelector(state=>state.admin)
-  console.log(isLoggedIn)
 
   const navigate = useNavigate();
 

@@ -49,7 +49,7 @@ function ProfileAndBooking() {
       dispatch(changeName(data.name))
     } catch (error) {
       console.log(error)
-      if(error.response?.data?.msg === 'User blocke') dispatch(userLogout())
+      if(error.response?.data?.msg === 'User blocked') dispatch(userLogout())
     }
   }
 

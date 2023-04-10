@@ -26,7 +26,6 @@ const initialState = {
         errMsg: ""
     }
 }
-fsgfg
 const userSlice = createSlice({
     name: 'user',
     initialState,

@@ -26,7 +26,7 @@ const initialState = {
         errMsg: ""
     }
 }
-
+fsgfg
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -43,6 +43,9 @@ const userSlice = createSlice({
         },
         userLogout: (state, action) => {
             state.isLoggedIn = false;
+            state.name = '';
+            state.mobile = '';
+            state.wallet = 0;
             localStorage.removeItem('user');
         },
         updateWallet: (state, action) => {

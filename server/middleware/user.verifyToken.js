@@ -11,6 +11,7 @@ const verifyToken = async (req, res, next) => {
         //else
         const userExist = await user.findById(verified.id)
         if (!userExist) return res.status(401).json({ msg: "Token verification failed, authorization denied" });
+        if(userExist.blockStatus) return res.status(403).json({ msg: "User blocked"});
         req._id = verified.id;
         next();
     } catch (error) {

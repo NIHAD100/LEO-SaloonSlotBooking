@@ -17,7 +17,6 @@ app.use(logger('dev'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    
     origin: process.env.CORS_URL, // allow requests from this origin
     credentials: true, // allow credentials to be sent with the request
 }))
